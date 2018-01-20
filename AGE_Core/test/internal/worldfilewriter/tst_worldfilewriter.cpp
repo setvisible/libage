@@ -23,9 +23,11 @@ class tst_WorldFileWriter : public QObject
 {
     Q_OBJECT
 private slots:
-    void parse_empty();
-    void parse_points();
+    void read_empty();
+    void read();
 
+    void write_empty();
+    void write();
 };
 
 using namespace AGE;
@@ -33,7 +35,7 @@ using namespace AGE;
 
 /******************************************************************************
  ******************************************************************************/
-void tst_WorldFileWriter::parse_empty()
+void tst_WorldFileWriter::read_empty()
 {
     // Given
     bool ok;
@@ -52,12 +54,16 @@ void tst_WorldFileWriter::parse_empty()
 
 /******************************************************************************
  ******************************************************************************/
-void tst_WorldFileWriter::parse_points()
+void tst_WorldFileWriter::read()
 {
     // Given
     bool ok;
     WorldFileWriter parser;
-    QByteArray byteArray("POINT 1 1000 1000 555\n");
+    QByteArray byteArray(
+                "POINT 2 40 50 60\n"
+                "EDGE 1 1 2\n"
+                "POINT 1 10 20 30\n"
+                );
     QBuffer buffer(&byteArray);
 
     // When
@@ -67,10 +73,90 @@ void tst_WorldFileWriter::parse_points()
     QCOMPARE(ok, true);
     QCOMPARE(parser.getErrors().count(), 0);
     QCOMPARE(world->isEmpty(), false);
-    QCOMPARE(world->pointCount(), 1);
-    QCOMPARE((*world->pointAt(0).data()), AGE::Point(1, 1000, 1000, 555));
+
+    QCOMPARE(world->pointCount(), 2);
+    QCOMPARE((*world->pointAt(-10).data()), AGE::Point());
+    QCOMPARE((*world->pointAt(0).data()), AGE::Point());
+    QCOMPARE((*world->pointAt(1).data()), AGE::Point(1, 10, 20, 30));
+    QCOMPARE((*world->pointAt(2).data()), AGE::Point(2, 40, 50, 60));
+    QCOMPARE((*world->pointAt(3).data()), AGE::Point());
+    QCOMPARE((*world->pointAt(99999).data()), AGE::Point());
+
+    QCOMPARE(world->edgeCount(), 1);
+    QCOMPARE((*world->edgeAt(-10).data()), AGE::Edge());
+    QCOMPARE((*world->edgeAt(1).data()), AGE::Edge(1, 1, 2));
+    QCOMPARE((*world->edgeAt(9999).data()), AGE::Edge());
+
+    QCOMPARE(world->regionCount(), 0);
 }
 
+/******************************************************************************
+ ******************************************************************************/
+void tst_WorldFileWriter::write_empty()
+{
+    // Given
+    AGE::WorldPtr world = QSharedPointer<AGE::World>(new AGE::World);
+    QString expected(
+                "$ Points\n"
+                "$\n"
+                "$\n"
+                "$ Edges\n"
+                "$\n"
+                "$\n"
+                "$ Regions\n"
+                "$\n"
+                "$\n"
+                );
+    expected.replace("\n", "\r\n");
+    QBuffer actual;
+
+    // When
+    WorldFileWriter parser;
+    bool ok = parser.write(actual, world);
+
+    // Then
+    QCOMPARE(ok, true);
+    QCOMPARE(parser.getErrors().count(), 0);
+    QCOMPARE(actual.buffer(), expected.toLatin1());
+}
+
+
+/******************************************************************************
+ ******************************************************************************/
+void tst_WorldFileWriter::write()
+{
+    // Given
+    AGE::WorldPtr world = QSharedPointer<AGE::World>(new AGE::World);
+    world.data()->m_points.append(QSharedPointer<AGE::Point>(new AGE::Point(1, 10, 20, 30)));
+    world.data()->m_points.append(QSharedPointer<AGE::Point>(new AGE::Point(2, 40, 50, 60)));
+    world.data()->m_edges.append(QSharedPointer<AGE::Edge>(new AGE::Edge(1, 1, 2)));
+
+    QString expected(
+                "$ Points\n"
+                "POINT 1 10 20 30\n"
+                "POINT 2 40 50 60\n"
+                "$\n"
+                "$\n"
+                "$ Edges\n"
+                "EDGE 1 1 2\n"
+                "$\n"
+                "$\n"
+                "$ Regions\n"
+                "$\n"
+                "$\n"
+                );
+    expected.replace("\n", "\r\n");
+    QBuffer actual;
+
+    // When
+    WorldFileWriter parser;
+    bool ok = parser.write(actual, world);
+
+    // Then
+    QCOMPARE(ok, true);
+    QCOMPARE(parser.getErrors().count(), 0);
+    QCOMPARE(actual.buffer(), expected.toLatin1());
+}
 
 QTEST_APPLESS_MAIN(tst_WorldFileWriter)
 
