@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/examples/">
+        <file>SimpleWorld.agw</file>
+    </qresource>
+</RCC>
