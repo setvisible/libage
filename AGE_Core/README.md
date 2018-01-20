@@ -4,6 +4,11 @@
 
 This directory contains the source code of AGE Core Library.
 
+## Build instructions
+
+1. Setup the path to third-party libraries in `./AGE_Core_config.pri`.
+
+
 
 ## License
 
