@@ -1,6 +1,6 @@
 # GENERAL
-PROJECT_NAME           = "AGE Core Library"
-OUTPUT_DIRECTORY       = "../../doxy-age-core/"
+PROJECT_NAME           = "AGE Editor"
+OUTPUT_DIRECTORY       = "../../doxy-age-editor/"
 OUTPUT_LANGUAGE        = English
 GENERATE_HTML          = YES
 GENERATE_LATEX         = NO
