@@ -17,13 +17,18 @@
 #ifndef IO_WORLD_FILE_WRITER_H
 #define IO_WORLD_FILE_WRITER_H
 
+#include <AGE/Globals>
 #include <AGE/Database/World>
 
 #include <QtCore/QStringList>
 
 class QIODevice;
 
-class WorldFileWriter
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+class LIBAGESHARED_EXPORT WorldFileWriter
 {
 public:
     explicit WorldFileWriter();
@@ -36,5 +41,10 @@ public:
 private:
     QStringList m_errors;
 };
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif // IO_WORLD_FILE_WRITER_H

@@ -92,7 +92,7 @@ QStringList WorldFileWriter::getErrors() const
  */
 AGE::WorldPtr WorldFileWriter::read(QIODevice &device, bool *ok)
 {
-    QSharedPointer<AGE::World> world = QSharedPointer<AGE::World>(new AGE::World);
+    AGE::WorldPtr world = AGE::WorldPtr(new AGE::World);
     Q_ASSERT(!world.isNull());
 
     m_errors.clear();
