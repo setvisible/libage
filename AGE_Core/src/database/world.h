@@ -42,6 +42,14 @@ class LIBAGESHARED_EXPORT World
 public:
     explicit World();
 
+    void clear()
+    {
+        m_points.clear();
+        m_edges.clear();
+        m_regions.clear();
+    }
+
+
     inline bool isEmpty() const Q_DECL_NOTHROW
     {
         return m_points.isEmpty() && m_edges.isEmpty() && m_regions.isEmpty();
