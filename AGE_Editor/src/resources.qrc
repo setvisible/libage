@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/logo/maps-pin-place.ico</file>
+        <file>icons/logo/maps-pin-place_128x128.png</file>
+    </qresource>
+</RCC>
