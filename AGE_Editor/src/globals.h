@@ -21,8 +21,8 @@
 #include <QtCore/QString>
 
 const QString STR_APPLICATION_NAME("AGE Editor");
-const QLatin1String STR_APPLICATION_VERSION("0.1 beta");
-const QLatin1String STR_APPLICATION_DATE("2017");
+const QLatin1String STR_APPLICATION_VERSION(APP_VERSION);
+const QLatin1String STR_APPLICATION_DATE("2018");
 const QString STR_APPLICATION_AUTHOR("Sébastien Vavassori");
 
 /*
