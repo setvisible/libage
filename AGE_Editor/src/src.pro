@@ -56,7 +56,6 @@ INCLUDEPATH += $$PWD/../include/
 # SOURCES
 #-------------------------------------------------
 include($$PWD/core/core.pri)
-include($$PWD/qml/qml.pri)
 include($$PWD/widgets/widgets.pri)
 
 HEADERS += \
