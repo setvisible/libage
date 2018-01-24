@@ -1,5 +1,4 @@
 TEMPLATE = subdirs
 CONFIG  += ordered
 
-SUBDIRS += $$PWD/generator
-
+SUBDIRS += $$PWD/worldfilewriter
