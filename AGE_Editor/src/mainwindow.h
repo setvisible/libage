@@ -40,15 +40,7 @@ public:
     bool loadFile(const QString &path);
 
 protected:
-    void closeEvent(QCloseEvent *event);
-    void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
-    void dragMoveEvent(QDragMoveEvent *event) Q_DECL_OVERRIDE;
-    void dragLeaveEvent(QDragLeaveEvent *event) Q_DECL_OVERRIDE;
-    void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
-#ifndef QT_NO_WHEELEVENT
-    void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
-#endif
-
+    virtual void closeEvent(QCloseEvent *event);
 
 private Q_SLOTS:
     void newFile();
@@ -70,11 +62,12 @@ private Q_SLOTS:
 private:
     Ui::MainWindow *ui;
     SceneManager* m_sceneManager;
-    Scene* m_scene;// OLD
 
     bool m_dirty;
     bool m_physicalFile;
     QFileInfo m_currentFile;
+
+    Scene* m_scene; // OLD
 
     inline QString niceFileName() const;
     inline bool isExampleFile() const;
