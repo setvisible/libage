@@ -56,7 +56,7 @@ public:
     }
 
 
-    inline int pointCount() const Q_DECL_NOTHROW { return m_points.count(); }
+    /*inline*/ int pointCount() const /*Q_DECL_NOTHROW*/ { return m_points.count(); }
     inline PointPtr pointAt(int index) const Q_DECL_NOTHROW {
         foreach (auto item, m_points) {
             if (item->m_identifier == index) {
