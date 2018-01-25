@@ -23,6 +23,9 @@
 #include <AGE/Database/World>
 #include <AGE/ScriptEngine/Element>
 
+#include <osg/ref_ptr>
+#include <osg/Group>
+
 #include <QtCore/QObject>
 #include <QtCore/QtContainerFwd> /* Forward Declarations of the Qt's Containers */
 
@@ -43,6 +46,8 @@ public:
     virtual ~AbstractSceneModel() Q_DECL_NOEXCEPT {}
 
     /* Public Getters */
+    Q_INVOKABLE virtual osg::ref_ptr<osg::Group> sceneNode() const = 0;
+
     Q_INVOKABLE virtual int pointCount() const = 0;
     Q_INVOKABLE virtual AGE::PointPtr pointAt(const int index) const = 0;
     Q_INVOKABLE virtual QSet<int> selectedPointIndexes() const = 0;
