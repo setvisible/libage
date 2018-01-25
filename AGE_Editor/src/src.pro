@@ -6,8 +6,6 @@ TARGET   = editor
 QT      += core gui
 QT      += xml
 QT      += opengl
-QT      += quick
-
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
