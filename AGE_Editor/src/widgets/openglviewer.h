@@ -17,14 +17,14 @@
 #ifndef WIDGETS_OPENGL_VIEWER_H
 #define WIDGETS_OPENGL_VIEWER_H
 
-#include <QOpenGLWidget>
-#include <QTimer>
-
 #include <osg/ref_ptr>
+#include <osg/Group>
 #include <osgViewer/CompositeViewer>
 #include <osgViewer/ViewerEventHandlers>
 
-class QWidget;
+#include <QOpenGLWidget>
+#include <QTimer>
+
 class SceneManager;
 
 namespace osgQt{
@@ -50,7 +50,10 @@ class OpenGLViewer : public QOpenGLWidget
 {
     Q_OBJECT
 public:
-    explicit OpenGLViewer(QWidget *parent = 0, Qt::WindowFlags f = 0);
+    explicit OpenGLViewer(QWidget *parent = Q_NULLPTR, Qt::WindowFlags f = 0);
+
+    void setSceneNode(const osg::ref_ptr<osg::Group> sceneNode);
+
 
 Q_SIGNALS:
 

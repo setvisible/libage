@@ -27,13 +27,16 @@ QT_BEGIN_NAMESPACE
 class QWidget;
 QT_END_NAMESPACE
 
-
+class AbstractSceneModel;
 class Viewer : public AbstractSceneView
 {
     Q_OBJECT
 public:
     explicit Viewer(QWidget *parent = Q_NULLPTR);
     virtual ~Viewer();
+
+    virtual void setModel(AbstractSceneModel *model);
+
 
 private Q_SLOTS:
     void update();

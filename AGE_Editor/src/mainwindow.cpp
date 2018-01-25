@@ -21,7 +21,6 @@
 #include "version.h"
 #include "globals.h"
 
-#include <Core/Scene>
 #include <Core/SceneManager>
 #include <Widgets/Viewer>
 
@@ -47,7 +46,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
   , m_sceneManager(new SceneManager(this))
   , m_dirty(false)
   , m_physicalFile(false)
-  , m_scene(new Scene(this)) // OLD
 {
     ui->setupUi(this);
 
@@ -55,11 +53,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     this->setWindowIcon(QIcon(":/icons/logo/maps-pin-place.ico"));
     this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     this->setAcceptDrops(true);
-
-
-    // SceneRootNode root = m_scene->sceneRootNode();// OLD
-    //  ui->viewer->setSceneRootNode( root ); // OLD
-
 
     /* [1] */
     /* Connect the GUI to the Scene Manager. */

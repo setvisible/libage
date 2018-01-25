@@ -20,7 +20,6 @@
 #include <QtCore/QFileInfo>
 #include <QtWidgets/QMainWindow>
 
-class Scene;
 class SceneManager;
 
 namespace Ui {
@@ -66,8 +65,6 @@ private:
     bool m_dirty;
     bool m_physicalFile;
     QFileInfo m_currentFile;
-
-    Scene* m_scene; // OLD
 
     inline QString niceFileName() const;
     inline bool isExampleFile() const;

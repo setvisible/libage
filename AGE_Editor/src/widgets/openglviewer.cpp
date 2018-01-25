@@ -16,6 +16,10 @@
 
 #include "openglviewer.h"
 
+#include <osgGA/TrackballManipulator>
+#include <osgQt/GraphicsWindowQt>
+#include <osgViewer/Viewer>
+
 #include <QtGui/QWheelEvent>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QWidget>
@@ -23,9 +27,6 @@
 #  include <QtCore/QDebug>
 #endif
 
-#include <osgGA/TrackballManipulator>
-#include <osgQt/GraphicsWindowQt>
-#include <osgViewer/Viewer>
 
 /*!
  * \class OpenGLViewer
@@ -93,6 +94,17 @@ OpenGLViewer::OpenGLViewer(QWidget *parent, Qt::WindowFlags f)
     m_timer.start( (int)(1000.f/30.f) ); // 33.3 msec = 30 frames/sec
 
 }
+
+
+void OpenGLViewer::setSceneNode(const osg::ref_ptr<osg::Group> sceneNode)
+{
+    const unsigned int count = m_viewer->getNumViews();
+    if (count != 1)
+        return;
+    osgViewer::View* view = m_viewer->getView(0);
+    view->setSceneData(sceneNode);
+}
+
 
 /**************************************************************************************
  **************************************************************************************/
@@ -252,6 +264,9 @@ QWidget* OpenGLViewer::addViewWidget(osgQt::GraphicsWindowQt* gw)
     camera->setProjectionMatrixAsPerspective(
                 30.0f, static_cast<double>(traits->width) / static_cast<double>(traits->height),
                 1.0f, 10000.0f );
+
+    // view->addEventHandler( new osgViewer::StatsHandler );
+    // view->setCameraManipulator( new osgGA::TrackballManipulator );
 
     return gw->getGLWidget();
 }

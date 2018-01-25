@@ -20,14 +20,12 @@
 #include <AGE/Globals>
 #include <QtWidgets/QWidget>
 
-class AbstractSceneModel;
-class DesignSpace;
-class Fastener;
-
 LIBAGE_BEGIN_NAMESPACE
 class Point;
 typedef QSharedPointer<Point> PointPtr;
 LIBAGE_END_NAMESPACE
+
+class AbstractSceneModel;
 
 class AbstractSceneView : public QWidget
 {

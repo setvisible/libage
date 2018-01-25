@@ -20,16 +20,20 @@
 
 #include <Core/AbstractSceneModel>
 
+#include <osg/ref_ptr>
+#include <osg/Group>
+
 #include <QtWidgets/QHBoxLayout>
 #ifdef QT_DEBUG
 #  include <QtCore/QDebug>
 #endif
 
-
 /*! \class Viewer
  *  \brief The class Viewer is the main 3D view in the AGE Editor.
  */
 
+/*! \brief Constructor.
+ */
 Viewer::Viewer(QWidget *parent) : AbstractSceneView(parent)
   , m_openGLViewer(new OpenGLViewer(this))
 {
@@ -52,4 +56,11 @@ void Viewer::update()
 
 /******************************************************************************
  ******************************************************************************/
+void Viewer::setModel(AbstractSceneModel *model)
+{
+    /* Set up the root OSG Node */
+    osg::ref_ptr<osg::Group> scene = model->sceneNode();
+    m_openGLViewer->setSceneNode(scene);
 
+    AbstractSceneView::setModel(model);
+}
