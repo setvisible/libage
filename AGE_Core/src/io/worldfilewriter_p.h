@@ -14,40 +14,23 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IO_WORLD_FILE_WRITER_H
-#define IO_WORLD_FILE_WRITER_H
+#ifndef IO_WORLD_FILE_WRITER_P_H
+#define IO_WORLD_FILE_WRITER_P_H
 
-#include <AGE/Globals>
-#include <AGE/Database/World>
+#include "worldfilewriter.h"
 
 #include <QtCore/QStringList>
-#include <QtCore/QScopedPointer>
 
-class QIODevice;
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-class LIBAGESHARED_EXPORT WorldFileWriter
+class WorldFileWriter::WorldFileWriterPrivate
 {
 public:
-    explicit WorldFileWriter();
+    WorldFileWriterPrivate(WorldFileWriter *q) : q_ptr(q) {}
 
-    AGE::WorldPtr read(QIODevice &device, bool *ok = Q_NULLPTR);
-    bool write(QIODevice &device, const AGE::WorldPtr &world);
-
-    QStringList getErrors() const;
+    QStringList m_errors;
 
 private:
-    class WorldFileWriterPrivate;
-    QSharedPointer<WorldFileWriterPrivate> d_ptr;
+    WorldFileWriter *q_ptr;
 
 };
 
-#ifdef __cplusplus
-}
-#endif
-
-
-#endif // IO_WORLD_FILE_WRITER_H
+#endif // IO_WORLD_FILE_WRITER_P_H

@@ -15,6 +15,7 @@
  */
 
 #include "worldfilewriter.h"
+#include "worldfilewriter_p.h"
 
 #include <AGE/Database/Point>
 
@@ -44,7 +45,6 @@ static QByteArray _t(const QString &text = QString())
     return ret;
 }
 
-
 /*!
  * \class WorldFileWriter
  * \brief The class WorldFileWriter is a reader/writer for World file.
@@ -70,6 +70,7 @@ static QByteArray _t(const QString &text = QString())
 /*! \brief Constructor.
  */
 WorldFileWriter::WorldFileWriter()
+    : d_ptr(new WorldFileWriterPrivate(this))
 {
 }
 
@@ -80,7 +81,8 @@ WorldFileWriter::WorldFileWriter()
  */
 QStringList WorldFileWriter::getErrors() const
 {
-    return m_errors;
+    WorldFileWriterPrivate *d = d_ptr.data();
+    return d->m_errors;
 }
 
 /******************************************************************************
@@ -92,14 +94,16 @@ QStringList WorldFileWriter::getErrors() const
  */
 AGE::WorldPtr WorldFileWriter::read(QIODevice &device, bool *ok)
 {
+    WorldFileWriterPrivate *d = d_ptr.data();
+
     AGE::WorldPtr world = AGE::WorldPtr(new AGE::World);
     Q_ASSERT(!world.isNull());
 
-    m_errors.clear();
+    d->m_errors.clear();
     (*ok) = true;
 
     if (!device.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        m_errors << QLatin1String("Cannot read the device.");
+        d->m_errors << QLatin1String("Cannot read the device.");
         (*ok) = false;
         return world;
     }
@@ -125,7 +129,7 @@ AGE::WorldPtr WorldFileWriter::read(QIODevice &device, bool *ok)
 
             const QList<QByteArray> list = line.split(s_separator);
             if (list.count() != 5) {
-                m_errors << QString("line %0: wrong format for POINT.").arg(lineNumber);
+                d->m_errors << QString("line %0: wrong format for POINT.").arg(lineNumber);
                 (*ok) = false;
             } else {
 
@@ -143,7 +147,7 @@ AGE::WorldPtr WorldFileWriter::read(QIODevice &device, bool *ok)
                 point->m_latitude  = (AGE::GeoCoordinate) lat.toInt(&_ok, 10); convert_ok &= _ok;
                 point->m_altitude  = (AGE::GeoCoordinate) alt.toInt(&_ok, 10); convert_ok &= _ok;
                 if (!convert_ok) {
-                    m_errors << QString("line %0: invalid argument for POINT.").arg(lineNumber);
+                    d->m_errors << QString("line %0: invalid argument for POINT.").arg(lineNumber);
                     (*ok) = false;
                 } else {
                     world->m_points.append( point );
@@ -159,7 +163,7 @@ AGE::WorldPtr WorldFileWriter::read(QIODevice &device, bool *ok)
 
             const QList<QByteArray> list = line.split(s_separator);
             if (list.count() != 4) {
-                m_errors << QString("line %0: wrong format for EDGE.").arg(lineNumber);
+                d->m_errors << QString("line %0: wrong format for EDGE.").arg(lineNumber);
                 (*ok) = false;
             } else {
 
@@ -175,7 +179,7 @@ AGE::WorldPtr WorldFileWriter::read(QIODevice &device, bool *ok)
                 edge->m_pid1 = pi1.toInt(&_ok, 10); convert_ok &= _ok;
                 edge->m_pid2 = pi2.toInt(&_ok, 10); convert_ok &= _ok;
                 if (!convert_ok) {
-                    m_errors << QString("line %0: invalid argument for EDGE.").arg(lineNumber);
+                    d->m_errors << QString("line %0: invalid argument for EDGE.").arg(lineNumber);
                     (*ok) = false;
                 } else {
                     world->m_edges.append( edge );
@@ -214,11 +218,13 @@ AGE::WorldPtr WorldFileWriter::read(QIODevice &device, bool *ok)
  */
 bool WorldFileWriter::write(QIODevice &device, const AGE::WorldPtr &world)
 {
+    WorldFileWriterPrivate *d = d_ptr.data();
+
     Q_ASSERT(!world.isNull());
-    m_errors.clear();
+    d->m_errors.clear();
 
     if (!device.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        m_errors << QLatin1String("Cannot write the device.");
+        d->m_errors << QLatin1String("Cannot write the device.");
         return false;
     }
 
