@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>376</width>
-    <height>328</height>
+    <width>582</width>
+    <height>482</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,7 +43,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>376</width>
+     <width>582</width>
      <height>21</height>
     </rect>
    </property>
@@ -71,6 +71,9 @@
     <property name="title">
      <string>&amp;View</string>
     </property>
+    <addaction name="action_ZoomFit"/>
+    <addaction name="action_ZoomIn"/>
+    <addaction name="action_ZoomOut"/>
     <addaction name="separator"/>
     <addaction name="action_Preferences"/>
    </widget>
@@ -80,10 +83,41 @@
     </property>
     <addaction name="action_SimpleWorld"/>
    </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="action_Undo"/>
+    <addaction name="action_Redo"/>
+    <addaction name="separator"/>
+    <addaction name="action_Cut"/>
+    <addaction name="action_Copy"/>
+    <addaction name="action_Paste"/>
+    <addaction name="separator"/>
+    <addaction name="action_Delete"/>
+   </widget>
+   <widget class="QMenu" name="menuFind">
+    <property name="title">
+     <string>Find</string>
+    </property>
+    <addaction name="action_Find"/>
+   </widget>
+   <widget class="QMenu" name="menuDatabase">
+    <property name="title">
+     <string>Database</string>
+    </property>
+    <addaction name="action_CreatePoint"/>
+    <addaction name="action_CreateEdge"/>
+    <addaction name="action_CreateRegion"/>
+    <addaction name="separator"/>
+   </widget>
    <addaction name="menu_File"/>
+   <addaction name="menu_Edit"/>
+   <addaction name="menuFind"/>
    <addaction name="menu_View"/>
-   <addaction name="menu_Help"/>
+   <addaction name="menuDatabase"/>
    <addaction name="menuExamples"/>
+   <addaction name="menu_Help"/>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="styleSheet">
@@ -93,7 +127,74 @@
 }</string>
    </property>
   </widget>
+  <widget class="QToolBar" name="fileBar">
+   <property name="windowTitle">
+    <string>File toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_New"/>
+   <addaction name="action_Open"/>
+   <addaction name="action_Save"/>
+   <addaction name="action_Properties"/>
+  </widget>
+  <widget class="QToolBar" name="editBar">
+   <property name="windowTitle">
+    <string>Edit toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_Cut"/>
+   <addaction name="action_Copy"/>
+   <addaction name="action_Paste"/>
+   <addaction name="action_Delete"/>
+   <addaction name="separator"/>
+   <addaction name="action_Undo"/>
+   <addaction name="action_Redo"/>
+  </widget>
+  <widget class="QToolBar" name="viewBar">
+   <property name="windowTitle">
+    <string>View toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_ZoomFit"/>
+   <addaction name="action_ZoomIn"/>
+   <addaction name="action_ZoomOut"/>
+   <addaction name="separator"/>
+   <addaction name="action_Preferences"/>
+  </widget>
+  <widget class="QToolBar" name="databaseBar">
+   <property name="windowTitle">
+    <string>Database toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_CreatePoint"/>
+   <addaction name="action_CreateEdge"/>
+   <addaction name="action_CreateRegion"/>
+  </widget>
   <action name="action_Open">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/document_open.png</normaloff>:/icons/merkaartor-actions/document_open.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Open...</string>
    </property>
@@ -107,6 +208,10 @@
    </property>
   </action>
   <action name="action_Preferences">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/preferences.png</normaloff>:/icons/merkaartor-actions/preferences.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Preferences...</string>
    </property>
@@ -125,11 +230,19 @@
    </property>
   </action>
   <action name="action_New">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/document_new.png</normaloff>:/icons/merkaartor-actions/document_new.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;New</string>
    </property>
   </action>
   <action name="action_Save">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/save.png</normaloff>:/icons/merkaartor-actions/save.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Save</string>
    </property>
@@ -138,6 +251,10 @@
    </property>
   </action>
   <action name="action_SaveAs">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/save.png</normaloff>:/icons/merkaartor-actions/save.png</iconset>
+   </property>
    <property name="text">
     <string>Save &amp;As...</string>
    </property>
@@ -151,8 +268,129 @@
    </property>
   </action>
   <action name="action_Properties">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/upload.png</normaloff>:/icons/merkaartor-actions/upload.png</iconset>
+   </property>
    <property name="text">
     <string>Properties...</string>
+   </property>
+  </action>
+  <action name="action_Copy">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/edit_copy.png</normaloff>:/icons/merkaartor-actions/edit_copy.png</iconset>
+   </property>
+   <property name="text">
+    <string>Copy</string>
+   </property>
+  </action>
+  <action name="action_Cut">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/edit-cut.png</normaloff>:/icons/merkaartor-actions/edit-cut.png</iconset>
+   </property>
+   <property name="text">
+    <string>Cut</string>
+   </property>
+  </action>
+  <action name="action_Paste">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/edit_paste.png</normaloff>:/icons/merkaartor-actions/edit_paste.png</iconset>
+   </property>
+   <property name="text">
+    <string>Paste</string>
+   </property>
+  </action>
+  <action name="action_Delete">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/edit_delete.png</normaloff>:/icons/merkaartor-actions/edit_delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete</string>
+   </property>
+  </action>
+  <action name="action_Undo">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/undo.png</normaloff>:/icons/merkaartor-actions/undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Undo</string>
+   </property>
+  </action>
+  <action name="action_Redo">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/redo.png</normaloff>:/icons/merkaartor-actions/redo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Redo</string>
+   </property>
+  </action>
+  <action name="action_Find">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/find.png</normaloff>:/icons/merkaartor-actions/find.png</iconset>
+   </property>
+   <property name="text">
+    <string>Find...</string>
+   </property>
+  </action>
+  <action name="action_CreatePoint">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/create_node.png</normaloff>:/icons/merkaartor-actions/create_node.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create Point</string>
+   </property>
+  </action>
+  <action name="action_CreateEdge">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/create_road.png</normaloff>:/icons/merkaartor-actions/create_road.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create Edge</string>
+   </property>
+  </action>
+  <action name="action_CreateRegion">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/create_area.png</normaloff>:/icons/merkaartor-actions/create_area.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create Region</string>
+   </property>
+  </action>
+  <action name="action_ZoomFit">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/zoom_fit_best.png</normaloff>:/icons/merkaartor-actions/zoom_fit_best.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Fit</string>
+   </property>
+  </action>
+  <action name="action_ZoomIn">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/zoom_in.png</normaloff>:/icons/merkaartor-actions/zoom_in.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+  </action>
+  <action name="action_ZoomOut">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/zoom_out.png</normaloff>:/icons/merkaartor-actions/zoom_out.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Out</string>
    </property>
   </action>
  </widget>
@@ -164,6 +402,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
