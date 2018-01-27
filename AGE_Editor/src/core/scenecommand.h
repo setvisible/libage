@@ -22,7 +22,7 @@
 
 #include <Core/SceneManager>
 
-namespace SpliceCommand {
+namespace SceneCommand {
 
 class AppendPoint : public QUndoCommand
 {
@@ -39,6 +39,6 @@ private:
  ******************************************************************************/
 
 
-} // namespace SpliceCommand
+} // namespace SceneCommand
 
 #endif // CORE_SCENE_COMMAND_H
