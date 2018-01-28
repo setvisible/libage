@@ -5,6 +5,7 @@
 /.*
 /*
 !/3rd
+!/data
 !/include
 !/src
 !/test
