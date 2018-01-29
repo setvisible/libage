@@ -44,4 +44,17 @@ extern "C" {
 #define LIBAGE_BEGIN_NAMESPACE  namespace AGE {
 #define LIBAGE_END_NAMESPACE    }
 
+
+/* PIMPL */
+#define AGE_PIMPL_INCLUDE(Class) \
+    class Class##Private;
+
+#define AGE_PIMPL_DECLARE(Class) \
+    class Class##Private; \
+    QSharedPointer<Class##Private> d_ptr;
+
+#define AGE_D(Class) \
+    Class##Private *d = d_ptr.data();
+
+
 #endif // AGE_GLOBAL_H

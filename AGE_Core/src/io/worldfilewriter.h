@@ -21,8 +21,9 @@
 #include <AGE/Database/World>
 
 #include <QtCore/QStringList>
-#include <QtCore/QScopedPointer>
+#include <QtCore/QSharedPointer>
 
+AGE_PIMPL_INCLUDE(WorldFileWriter)
 class QIODevice;
 
 #ifdef __cplusplus
@@ -40,8 +41,7 @@ public:
     QStringList getErrors() const;
 
 private:
-    class WorldFileWriterPrivate;
-    QSharedPointer<WorldFileWriterPrivate> d_ptr;
+    AGE_PIMPL_DECLARE(WorldFileWriter)
 
 };
 

@@ -21,7 +21,6 @@
 
 #include <QtCore/QIODevice>
 #include <QtCore/QByteArray>
-#include <QtCore/QSharedPointer>
 #ifdef QT_DEBUG
 #  include <QtCore/QDebug>
 #endif
@@ -81,7 +80,7 @@ WorldFileWriter::WorldFileWriter()
  */
 QStringList WorldFileWriter::getErrors() const
 {
-    WorldFileWriterPrivate *d = d_ptr.data();
+    AGE_D(WorldFileWriter);
     return d->m_errors;
 }
 
@@ -94,7 +93,7 @@ QStringList WorldFileWriter::getErrors() const
  */
 AGE::WorldPtr WorldFileWriter::read(QIODevice &device, bool *ok)
 {
-    WorldFileWriterPrivate *d = d_ptr.data();
+    AGE_D(WorldFileWriter);
 
     AGE::WorldPtr world = AGE::WorldPtr(new AGE::World);
     Q_ASSERT(!world.isNull());
@@ -218,7 +217,7 @@ AGE::WorldPtr WorldFileWriter::read(QIODevice &device, bool *ok)
  */
 bool WorldFileWriter::write(QIODevice &device, const AGE::WorldPtr &world)
 {
-    WorldFileWriterPrivate *d = d_ptr.data();
+    AGE_D(WorldFileWriter);
 
     Q_ASSERT(!world.isNull());
     d->m_errors.clear();
