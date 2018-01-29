@@ -17,23 +17,96 @@
 #ifndef CORE_SCENE_COMMAND_H
 #define CORE_SCENE_COMMAND_H
 
-#include <QtCore/QString>
+#include <Core/SceneManager>
+
+#include <QtCore/QMap>
+#include <QtCore/QMapIterator>
 #include <QtWidgets/QUndoCommand>
 
-#include <Core/SceneManager>
+#define C_COMMAND_ID_SET_POINT          10
+
 
 namespace SceneCommand {
 
-class AppendPoint : public QUndoCommand
+class InsertPoint : public QUndoCommand
 {
 public:
-    AppendPoint(QString *doc, const QString &text)
-        : m_document(doc), m_text(text) { setText("append text"); }
-    virtual void undo() { m_document->chop(m_text.length()); }
-    virtual void redo() { m_document->append(m_text); }
+    InsertPoint(SceneManager *manager, int index, AGE::PointPtr point, QUndoCommand *parent = Q_NULLPTR)
+        : QUndoCommand(parent), m_manager(manager), m_index(index), m_point(point)
+    { this->setText("Insert Point"); }
+    virtual void undo() { m_manager->_q_removePoint(m_index); }
+    virtual void redo() { m_manager->_q_insertPoint(m_index, m_point); }
 private:
-    QString *m_document;
-    QString m_text;
+    SceneManager *m_manager;
+    int m_index;
+    AGE::PointPtr m_point;
+};
+
+class SetPoint : public QUndoCommand
+{
+public:
+    SetPoint(SceneManager *manager, int index, AGE::PointPtr point, QUndoCommand *parent = Q_NULLPTR)
+        : QUndoCommand(parent), m_manager(manager)
+    {
+        this->setText("Modify Point");
+        m_points.insert(index, point);
+        m_previous.insert(index, m_manager->pointAt(index));
+    }
+    virtual void undo()
+    {
+        QMapIterator<int, AGE::PointPtr> i(m_previous);
+        while (i.hasNext()) {
+            i.next();
+            m_manager->_q_setPoint(i.key(), i.value());
+        }
+    }
+    virtual void redo()
+    {
+        QMapIterator<int, AGE::PointPtr> i(m_points);
+        while (i.hasNext()) {
+            i.next();
+            m_manager->_q_setPoint(i.key(), i.value());
+        }
+    }
+    virtual int id() const { return C_COMMAND_ID_SET_POINT; }
+    bool mergeWith(const QUndoCommand *other)
+    {
+        if (other->id() != id())
+            return false;
+        QMap<int, AGE::PointPtr> previous = static_cast<const SetPoint*>(other)->m_previous;
+        QMapIterator<int, AGE::PointPtr> prev(previous);
+        while (prev.hasNext()) {
+            prev.next();
+            if (!m_previous.contains(prev.key())) {
+                m_previous.insert(prev.key(), prev.value());
+            }
+        }
+        QMap<int, AGE::PointPtr> points = static_cast<const SetPoint*>(other)->m_points;
+        QMapIterator<int, AGE::PointPtr> i(points);
+        while (i.hasNext()) {
+            i.next();
+            m_points.insert(i.key(), i.value());
+        }
+        return true;
+    }
+private:
+    SceneManager *m_manager;
+    QMap<int, AGE::PointPtr> m_previous;
+    QMap<int, AGE::PointPtr> m_points;
+};
+
+class RemovePoint : public QUndoCommand
+{
+public:
+    RemovePoint(SceneManager *manager, int index, QUndoCommand *parent = Q_NULLPTR)
+        : QUndoCommand(parent), m_manager(manager), m_index(index), m_previous(m_manager->pointAt(index))
+    { this->setText("Remove Point"); }
+    virtual void undo() { m_manager->_q_insertPoint(m_index, m_previous); }
+    virtual void redo() { m_manager->_q_removePoint(m_index); }
+private:
+    SceneManager *m_manager;
+    int m_index;
+    AGE::PointPtr m_previous;
 };
 /******************************************************************************
  ******************************************************************************/
