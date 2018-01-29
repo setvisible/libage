@@ -75,7 +75,7 @@
     <addaction name="action_ZoomIn"/>
     <addaction name="action_ZoomOut"/>
     <addaction name="separator"/>
-    <addaction name="action_Preferences"/>
+    <addaction name="action_Wireframe"/>
    </widget>
    <widget class="QMenu" name="menuExamples">
     <property name="title">
@@ -111,11 +111,20 @@
     <addaction name="action_CreateRegion"/>
     <addaction name="separator"/>
    </widget>
+   <widget class="QMenu" name="menuOption">
+    <property name="title">
+     <string>Option</string>
+    </property>
+    <addaction name="action_ShowUndoRedoPanel"/>
+    <addaction name="separator"/>
+    <addaction name="action_Preferences"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
    <addaction name="menuFind"/>
    <addaction name="menu_View"/>
    <addaction name="menuDatabase"/>
+   <addaction name="menuOption"/>
    <addaction name="menuExamples"/>
    <addaction name="menu_Help"/>
   </widget>
@@ -391,6 +400,20 @@
    </property>
    <property name="text">
     <string>Zoom Out</string>
+   </property>
+  </action>
+  <action name="action_ShowUndoRedoPanel">
+   <property name="text">
+    <string>Show Undo/Redo Panel</string>
+   </property>
+  </action>
+  <action name="action_Wireframe">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/merkaartor-actions/terrace_building.png</normaloff>:/icons/merkaartor-actions/terrace_building.png</iconset>
+   </property>
+   <property name="text">
+    <string>Wireframe</string>
    </property>
   </action>
  </widget>

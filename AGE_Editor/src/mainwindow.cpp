@@ -22,20 +22,19 @@
 #include "globals.h"
 
 #include <Core/SceneManager>
+#include <Core/Option>
 #include <Widgets/Viewer>
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
-#include <QtCore/QJsonArray>
-#include <QtCore/QJsonDocument>
-#include <QtCore/QJsonObject>
-#include <QtCore/QMimeData>
 #include <QtCore/QSettings>
 #include <QtCore/QUrl>
+#include <QtCore/QStandardPaths>
 #include <QtGui/QCloseEvent>
-#include <QtGui/QDesktopServices>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
+#include <QtWidgets/QUndoStack>
+#include <QtWidgets/QUndoView>
 #ifdef QT_DEBUG
 #  include <QtCore/QDebug>
 #endif
@@ -44,6 +43,8 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
   , ui(new Ui::MainWindow)
   , m_sceneManager(new SceneManager(this))
+  , m_option(Q_NULLPTR)
+  , m_undoRedoPanel(Q_NULLPTR)
   , m_dirty(false)
   , m_physicalFile(false)
 {
@@ -54,10 +55,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     this->setAcceptDrops(true);
 
+
     /* [1] */
     /* Connect the GUI to the Scene Manager. */
     ui->viewer->setModel(m_sceneManager);
-
 
     /* [2] */
     /* Connect the Scene Manager to the MainWindow. */
@@ -80,6 +81,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     /* [5] */
     /* Connect the rest of the GUI widgets together (selection, focus, etc.) */
 
+    m_option = new Option(this);
+    m_option->setScene(m_sceneManager->scene());
 
 
     createActions();
@@ -90,13 +93,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     newFile();
 }
 
+
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-/***********************************************************************************
- ***********************************************************************************/
+/******************************************************************************
+ ******************************************************************************/
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if (maybeSave()) {
@@ -107,8 +111,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-/***********************************************************************************
- ***********************************************************************************/
+/******************************************************************************
+ ******************************************************************************/
 void MainWindow::newFile()
 {
     if (maybeSave()) {
@@ -168,16 +172,31 @@ void MainWindow::open()
     }
 }
 
-/***********************************************************************************
- ***********************************************************************************/
+/******************************************************************************
+ ******************************************************************************/
 void MainWindow::showFileProperties()
 {
     //PropertiesDialog dialog(m_sceneManager, this);
     //dialog.exec();
 }
 
-/***********************************************************************************
- ***********************************************************************************/
+/******************************************************************************
+ ******************************************************************************/
+void MainWindow::showUndoRedoPanel(bool toggled)
+{
+    Q_ASSERT(m_sceneManager->undoStack());
+    if (!m_undoRedoPanel) {
+        m_undoRedoPanel = new QUndoView(m_sceneManager->undoStack());
+        Qt::WindowFlags flags = Qt::Tool | Qt::WindowStaysOnTopHint;
+        flags ^= Qt::WindowCloseButtonHint;
+        m_undoRedoPanel->setWindowFlags(flags);
+        m_undoRedoPanel->setWindowTitle(QStringLiteral("Undo/Redo Panel"));
+    }
+    m_undoRedoPanel->setVisible(toggled);
+}
+
+/******************************************************************************
+ ******************************************************************************/
 void MainWindow::showPreferences()
 {
     //  SettingsDialog dialog(this);
@@ -185,16 +204,16 @@ void MainWindow::showPreferences()
     //  m_mystery->readSettings();
 }
 
-/***********************************************************************************
- ***********************************************************************************/
+/******************************************************************************
+ ******************************************************************************/
 void MainWindow::about()
 {
     QMessageBox msgBox(QMessageBox::NoIcon, tr("About AGE Editor"), aboutHtml());
     msgBox.exec();
 }
 
-/***********************************************************************************
- ***********************************************************************************/
+/******************************************************************************
+ ******************************************************************************/
 bool MainWindow::maybeSave()
 {
     if (m_dirty) {
@@ -237,8 +256,8 @@ void MainWindow::setClean()
 }
 
 
-/***********************************************************************************
- ***********************************************************************************/
+/******************************************************************************
+ ******************************************************************************/
 QString MainWindow::askSaveFileName(const QString &fileFilter, const QString &title)
 {
     QString suggestedPath;
@@ -262,8 +281,8 @@ QString MainWindow::askOpenFileName(const QString &fileFilter, const QString &ti
 }
 
 
-/***********************************************************************************
- ***********************************************************************************/
+/******************************************************************************
+ ******************************************************************************/
 void MainWindow::readSettings()
 {
     QSettings settings;
@@ -294,8 +313,8 @@ void MainWindow::writeSettings()
     settings.setValue("Version", STR_APPLICATION_VERSION );
 }
 
-/***********************************************************************************
- ***********************************************************************************/
+/******************************************************************************
+ ******************************************************************************/
 void MainWindow::createActions()
 {
     //! [0] File
@@ -324,7 +343,64 @@ void MainWindow::createActions()
     connect(ui->action_Exit, SIGNAL(triggered()), this, SLOT(close()));
     //! [0]
 
-    //! [1] View
+    //! [1] Edit
+    {
+        QUndoStack *stack = m_sceneManager->undoStack();
+        Q_ASSERT(stack);
+
+        ui->action_Undo->setShortcuts(QKeySequence::Undo);
+        ui->action_Undo->setStatusTip(tr("Undo"));
+        connect(ui->action_Undo, SIGNAL(triggered()), stack, SLOT(undo()));
+        connect(stack, SIGNAL(canUndoChanged(bool)), ui->action_Undo, SLOT(setEnabled(bool)));
+        ui->action_Undo->setEnabled(false);
+
+        ui->action_Redo->setShortcuts(QKeySequence::Redo);
+        ui->action_Redo->setStatusTip(tr("Redo"));
+        connect(ui->action_Redo, SIGNAL(triggered()), stack, SLOT(redo()));
+        connect(stack, SIGNAL(canRedoChanged(bool)), ui->action_Redo, SLOT(setEnabled(bool)));
+        ui->action_Redo->setEnabled(false);
+    }
+
+    //! [1]
+
+    //! [2] Find
+    //! [2]
+
+    //! [3] View
+    ui->action_ZoomFit->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_0));
+    ui->action_ZoomFit->setStatusTip(tr("Zoom Fit"));
+    //connect(ui->action_ZoomFit, SIGNAL(triggered()), ui->viewer, SLOT(zoomFit()));
+
+    ui->action_ZoomIn->setShortcuts(QKeySequence::ZoomIn);
+    ui->action_ZoomIn->setStatusTip(tr("Zoom In"));
+    //connect(ui->action_ZoomIn, SIGNAL(triggered()), ui->viewer, SLOT(zoomIn()));
+
+    ui->action_ZoomOut->setShortcuts(QKeySequence::ZoomOut);
+    ui->action_ZoomOut->setStatusTip(tr("Zoom Out"));
+    //connect(ui->action_ZoomOut, SIGNAL(triggered()), ui->viewer, SLOT(zoomOut()));
+
+    ui->action_Wireframe->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_W));
+    ui->action_Wireframe->setStatusTip(tr("Wireframe On/Off"));
+    ui->action_Wireframe->setCheckable(true);
+    ui->action_Wireframe->setChecked(false);
+    connect(ui->action_Wireframe, SIGNAL(toggled(bool)), m_option, SLOT(setWireframe(bool)));
+    connect(m_option, SIGNAL(wireframeChanged(bool)), ui->action_Wireframe, SLOT(setChecked(bool)));
+    //! [3]
+
+    //! [4] Database
+    ui->action_CreatePoint->setStatusTip(tr("Create Point"));
+    ui->action_CreatePoint->setCheckable(true);
+    ui->action_CreatePoint->setChecked(false);
+    //..
+
+    //! [4]
+
+    //! [5] Options
+    ui->action_ShowUndoRedoPanel->setStatusTip(tr("Show Undo/Redo Panel"));
+    ui->action_ShowUndoRedoPanel->setCheckable(true);
+    ui->action_ShowUndoRedoPanel->setChecked(false);
+    connect(ui->action_ShowUndoRedoPanel, SIGNAL(toggled(bool)), this, SLOT(showUndoRedoPanel(bool)));
+
 #ifdef Q_OS_WIN
     ui->action_Preferences->setShortcut(QKeySequence(/*Qt::CTRL +*/ Qt::Key_F10));
 #else
@@ -332,10 +408,13 @@ void MainWindow::createActions()
 #endif
     ui->action_Preferences->setStatusTip(tr("Open settings"));
     connect(ui->action_Preferences, SIGNAL(triggered()), this, SLOT(showPreferences()));
-    //! [1]
 
+    //! [5]
 
-    //! [4] Help
+    //! [6] Examples
+    //! [6]
+
+    //! [7] Help
     ui->action_About->setShortcuts(QKeySequence::HelpContents);
     ui->action_About->setStatusTip(tr("About %0").arg(STR_APPLICATION_NAME));
     connect(ui->action_About, SIGNAL(triggered()), this, SLOT(about()));
@@ -343,7 +422,7 @@ void MainWindow::createActions()
     ui->action_AboutQt->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F1));
     ui->action_AboutQt->setStatusTip(tr("About Qt"));
     connect(ui->action_AboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-    //! [4]
+    //! [7]
 }
 
 void MainWindow::createMenus()
@@ -352,8 +431,8 @@ void MainWindow::createMenus()
 }
 
 
-/***********************************************************************************
- ***********************************************************************************/
+/******************************************************************************
+ ******************************************************************************/
 bool MainWindow::saveFile(const QString &path)
 {
     QDir::setCurrent(path);

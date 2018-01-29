@@ -20,12 +20,16 @@
 #include <QtCore/QFileInfo>
 #include <QtWidgets/QMainWindow>
 
+class Option;
 class SceneManager;
+
+QT_BEGIN_NAMESPACE
+class QUndoView;
+QT_END_NAMESPACE
 
 namespace Ui {
 class MainWindow;
 }
-
 
 class MainWindow : public QMainWindow
 {
@@ -47,6 +51,7 @@ private Q_SLOTS:
     bool saveAs();
     void open();
     void showFileProperties();
+    void showUndoRedoPanel(bool toggled);
     void showPreferences();
 
     void about();
@@ -60,7 +65,9 @@ private Q_SLOTS:
 
 private:
     Ui::MainWindow *ui;
-    SceneManager* m_sceneManager;
+    SceneManager *m_sceneManager;
+    Option *m_option;
+    QUndoView *m_undoRedoPanel;
 
     bool m_dirty;
     bool m_physicalFile;

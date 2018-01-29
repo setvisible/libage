@@ -25,7 +25,7 @@
 #include <QOpenGLWidget>
 #include <QTimer>
 
-class SceneManager;
+class SceneModelManager;
 
 namespace osgQt{
 class GraphicsWindowQt;
@@ -40,8 +40,10 @@ public:
         * Adjust font type/size for >=OSG3.                              *
         * OSG defaults aren't working/available for this programme.      *
         \****************************************************************/
-        _font = "Fonts/helvetica_medium.txf";
-        _characterSize = 16.0f; /* or 12.0f */
+        //_font = "Fonts/helvetica_medium.txf";
+        //_characterSize = 16.0f; /* or 12.0f */
+        _font = "fonts/Vera.ttf";
+        _characterSize = 16.0f;
     }
 };
 
