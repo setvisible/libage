@@ -14,9 +14,11 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "scenemanager.h"
+#include "scenemodelmanager.h"
 
 #include <Core/Scene>
+
+#include <Utils/Logger>
 
 #include <AGE/Globals>
 #include <AGE/Database/World>
@@ -44,10 +46,13 @@
 
 /*! \brief Constructor.
  */
-SceneManager::SceneManager(QObject *parent) : AbstractSceneModel(parent)
+SceneModelManager::SceneModelManager(QObject *parent) : AbstractSceneModel(parent)
   , m_scene(new Scene(this))
   , m_world(AGE::WorldPtr(new AGE::World))
 {
+    osg::setNotifyLevel( osg::INFO );
+    osg::setNotifyHandler(new Logger);
+
     this->clear();
 }
 
@@ -64,7 +69,7 @@ SceneManager::SceneManager(QObject *parent) : AbstractSceneModel(parent)
 /*! \brief Clear and emit the change, in order to update the views,
  * that derive from AbstractSceneView.
  */
-void SceneManager::clear()
+void SceneModelManager::clear()
 {
     m_world.clear();
     m_scene->clear();
@@ -73,15 +78,16 @@ void SceneManager::clear()
 /******************************************************************************
  ******************************************************************************/
 /* SERIALISATION */
-void SceneManager::read(QByteArray &bytes, bool *ok)
+void SceneModelManager::read(QByteArray &bytes, bool *ok)
 {
     clear();
     QBuffer buffer(&bytes);
     WorldFileWriter parser;
     m_world = parser.read(buffer, ok);
+    populateScene();
 }
 
-void SceneManager::write(QByteArray &bytes) const
+void SceneModelManager::write(QByteArray &bytes) const
 {
     QBuffer buffer(&bytes);
     WorldFileWriter parser;
@@ -92,7 +98,15 @@ void SceneManager::write(QByteArray &bytes) const
 
 /******************************************************************************
  ******************************************************************************/
-osg::ref_ptr<osg::Group> SceneManager::sceneNode() const
+
+Scene* SceneModelManager::scene() const
+{
+    return m_scene;
+}
+
+
+
+osg::ref_ptr<osg::Group> SceneModelManager::sceneNode() const
 {
     return m_scene->sceneNode();
 }
@@ -100,13 +114,21 @@ osg::ref_ptr<osg::Group> SceneManager::sceneNode() const
 
 /******************************************************************************
  ******************************************************************************/
-int SceneManager::pointCount() const
+void SceneModelManager::populateScene()
+{
+
+   // m_scene->
+}
+
+/******************************************************************************
+ ******************************************************************************/
+int SceneModelManager::pointCount() const
 {
     Q_ASSERT(m_world.data());
     return m_world->pointCount();
 }
 
-AGE::PointPtr SceneManager::pointAt(const int index) const
+AGE::PointPtr SceneModelManager::pointAt(const int index) const
 {
     if (index >= 0 && index < m_world->m_points.count()) {
         return m_world->m_points.at(index);
@@ -116,12 +138,12 @@ AGE::PointPtr SceneManager::pointAt(const int index) const
 
 /******************************************************************************
  ******************************************************************************/
-QSet<int> SceneManager::selectedPointIndexes() const
+QSet<int> SceneModelManager::selectedPointIndexes() const
 {
     return m_selectedPointIndexes;
 }
 
-AGE::ElementPtr SceneManager::elementAt(const int index) const
+AGE::ElementPtr SceneModelManager::elementAt(const int index) const
 {
     return AGE::ElementPtr(Q_NULLPTR);
 }
@@ -129,35 +151,32 @@ AGE::ElementPtr SceneManager::elementAt(const int index) const
 
 /******************************************************************************
  ******************************************************************************/
-bool SceneManager::insertPoint(const int index, const AGE::PointPtr &point)
+void SceneModelManager::insertPoint(const int index, const AGE::PointPtr &point)
 {
 
     // Command here
 
     Q_UNUSED(index);
     Q_UNUSED(point);
-    return false;
 }
 
-bool SceneManager::setPoint(const int index, const AGE::PointPtr &point)
+void SceneModelManager::setPoint(const int index, const AGE::PointPtr &point)
 {
     Q_UNUSED(index);
     Q_UNUSED(point);
-    return false;
 }
 
-bool SceneManager::removePoint(const int index)
+void SceneModelManager::removePoint(const int index)
 {
     Q_UNUSED(index);
-    return false;
 }
 
-bool SceneManager::setPointSelection(const QSet<int> indexes)
+void SceneModelManager::setPointSelection(const QSet<int> indexes)
 {
 
 }
 
-bool SceneManager::setElementSelection(const QSet<int> indexes)
+void SceneModelManager::setElementSelection(const QSet<int> indexes)
 {
 
 }
@@ -165,7 +184,7 @@ bool SceneManager::setElementSelection(const QSet<int> indexes)
 
 /******************************************************************************
  ******************************************************************************/
-void SceneManager::regenerate()
+void SceneModelManager::regenerate()
 {
     /// \todo Use worker thread here.
     /// \todo see  Mandelbrot Example  or  Blocking Fortune Client Example
