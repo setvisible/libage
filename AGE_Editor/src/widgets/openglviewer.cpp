@@ -287,9 +287,6 @@ QWidget* OpenGLViewer::addViewWidget(osgQt::GraphicsWindowQt* gw)
                 30.0f, static_cast<double>(traits->width) / static_cast<double>(traits->height),
                 1.0f, 10000.0f );
 
-    // view->addEventHandler( new osgViewer::StatsHandler );
-    // view->setCameraManipulator( new osgGA::TrackballManipulator );
-
     return gw->getGLWidget();
 }
 

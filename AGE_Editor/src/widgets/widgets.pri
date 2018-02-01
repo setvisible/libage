@@ -1,11 +1,11 @@
 HEADERS += \
     $$PWD/abstractsceneview.h \
-    $$PWD/viewer.h \
     $$PWD/compass.h \
-    $$PWD/openglviewer.h
+    $$PWD/openglviewer.h \
+    $$PWD/viewer.h
 
 SOURCES += \
     $$PWD/abstractsceneview.cpp \
-    $$PWD/viewer.cpp \
     $$PWD/compass.cpp \
-    $$PWD/openglviewer.cpp
+    $$PWD/openglviewer.cpp \
+    $$PWD/viewer.cpp
