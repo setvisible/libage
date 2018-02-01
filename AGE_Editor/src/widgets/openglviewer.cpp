@@ -17,6 +17,7 @@
 #include "openglviewer.h"
 
 #include "compass.h"
+#include "pickhandler.h"
 
 #include <osgGA/TrackballManipulator>
 #include <osgQt/GraphicsWindowQt>
@@ -73,6 +74,7 @@ OpenGLViewer::OpenGLViewer(QWidget *parent, Qt::WindowFlags f)
         osgViewer::View* view = m_viewer->getView(0);
         Q_ASSERT(view);
         view->addEventHandler( new MyStatsHandler );
+        view->addEventHandler( new PickHandler );
 
         osgGA::TrackballManipulator* manipulator = new osgGA::TrackballManipulator;
         manipulator->setAllowThrow( false );
