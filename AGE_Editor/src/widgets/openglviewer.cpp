@@ -16,6 +16,8 @@
 
 #include "openglviewer.h"
 
+#include "compass.h"
+
 #include <osgGA/TrackballManipulator>
 #include <osgQt/GraphicsWindowQt>
 #include <osgViewer/Viewer>
@@ -95,7 +97,12 @@ OpenGLViewer::OpenGLViewer(QWidget *parent, Qt::WindowFlags f)
 
 }
 
+OpenGLViewer::~OpenGLViewer()
+{
+}
 
+/******************************************************************************
+ ******************************************************************************/
 void OpenGLViewer::setSceneNode(const osg::ref_ptr<osg::Group> sceneNode)
 {
     const unsigned int count = m_viewer->getNumViews();
@@ -103,8 +110,23 @@ void OpenGLViewer::setSceneNode(const osg::ref_ptr<osg::Group> sceneNode)
         return;
     osgViewer::View* view = m_viewer->getView(0);
     view->setSceneData(sceneNode);
-}
 
+    /* Add a Compass to the scene */
+    osg::Camera* camera = view->getCamera();
+    osg::ref_ptr<Compass> compass = new Compass;
+    compass->setMainCamera( camera );
+    compass->setViewport( 0.0, 0.0, 200.0, 200.0 );
+    compass->setProjectionMatrix( osg::Matrixd::ortho(-1.5, 1.5, -1.5, 1.5, -10.0, 10.0) );
+
+    compass->setRenderOrder( osg::Camera::POST_RENDER );
+    compass->setClearMask( GL_DEPTH_BUFFER_BIT );
+    compass->setAllowEventFocus( false );
+    compass->setReferenceFrame( osg::Transform::ABSOLUTE_RF );
+    compass->getOrCreateStateSet()->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
+    compass->getOrCreateStateSet()->setMode( GL_BLEND, osg::StateAttribute::ON );
+
+    sceneNode->addChild( compass.get() );
+}
 
 /******************************************************************************
  ******************************************************************************/

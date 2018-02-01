@@ -53,6 +53,7 @@ class OpenGLViewer : public QOpenGLWidget
     Q_OBJECT
 public:
     explicit OpenGLViewer(QWidget *parent = Q_NULLPTR, Qt::WindowFlags f = 0);
+    ~OpenGLViewer();
 
     void setSceneNode(const osg::ref_ptr<osg::Group> sceneNode);
 
