@@ -14,8 +14,8 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef WIDGETS_PICK_HANDLER_H
-#define WIDGETS_PICK_HANDLER_H
+#ifndef OPENGL_PICK_HANDLER_H
+#define OPENGL_PICK_HANDLER_H
 
 #include <osgGA/GUIEventHandler>
 #include <osgUtil/LineSegmentIntersector>
@@ -33,4 +33,4 @@ private:
 
 };
 
-#endif // WIDGETS_PICK_HANDLER_H
+#endif // OPENGL_PICK_HANDLER_H

@@ -14,8 +14,8 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef WIDGETS_OPENGL_VIEWER_H
-#define WIDGETS_OPENGL_VIEWER_H
+#ifndef OPENGL_OPENGL_VIEWER_H
+#define OPENGL_OPENGL_VIEWER_H
 
 #include <osg/ref_ptr>
 #include <osg/Group>
@@ -85,4 +85,4 @@ private:
 
 };
 
-#endif // WIDGETS_OPENGL_VIEWER_H
+#endif // OPENGL_OPENGL_VIEWER_H

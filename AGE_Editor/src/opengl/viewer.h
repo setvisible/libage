@@ -14,8 +14,8 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef WIDGETS_VIEWER_H
-#define WIDGETS_VIEWER_H
+#ifndef OPENGL_VIEWER_H
+#define OPENGL_VIEWER_H
 
 #include <Widgets/AbstractSceneView>
 
@@ -46,4 +46,4 @@ private:
 
 };
 
-#endif // WIDGETS_VIEWER_H
+#endif // OPENGL_VIEWER_H

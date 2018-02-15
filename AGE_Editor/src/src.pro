@@ -54,6 +54,7 @@ INCLUDEPATH += $$PWD/../include/
 # SOURCES
 #-------------------------------------------------
 include($$PWD/core/core.pri)
+include($$PWD/opengl/opengl.pri)
 include($$PWD/utils/utils.pri)
 include($$PWD/widgets/widgets.pri)
 

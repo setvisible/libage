@@ -23,7 +23,7 @@
 
 #include <Core/SceneManager>
 #include <Core/Option>
-#include <Widgets/Viewer>
+#include <OpenGL/Viewer>
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>

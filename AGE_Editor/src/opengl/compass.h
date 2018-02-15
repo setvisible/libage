@@ -14,8 +14,8 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CORE_COMPASS_H
-#define CORE_COMPASS_H
+#ifndef OPENGL_COMPASS_H
+#define OPENGL_COMPASS_H
 
 #include <osg/Camera>
 
@@ -48,4 +48,4 @@ private:
 };
 
 
-#endif // CORE_COMPASS_H
+#endif // OPENGL_COMPASS_H

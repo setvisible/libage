@@ -79,6 +79,7 @@ osg::ref_ptr<osg::MatrixTransform> Compass::createGeometry()
     osg::ref_ptr<osg::MatrixTransform> transform = new osg::MatrixTransform;
     transform->getOrCreateStateSet()->setRenderingHint(osg::StateSet::TRANSPARENT_BIN );
     transform->addChild( group.get() );
+    transform->setName("compass");
     return transform.release();
 }
 
