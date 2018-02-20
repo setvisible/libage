@@ -2,6 +2,13 @@
     <qresource prefix="/">
         <file>icons/logo/maps-pin-place.ico</file>
         <file>icons/logo/maps-pin-place_128x128.png</file>
+        <file>icons/menu/view_axes_24x24.png</file>
+        <file>icons/menu/view_background_24x24.png</file>
+        <file>icons/menu/view_contour_24x24.png</file>
+        <file>icons/menu/view_grid_24x24.png</file>
+        <file>icons/menu/view_texture_24x24.png</file>
+        <file>icons/menu/view_wireframe_24x24.png</file>
+        <file>icons/menu/view_wireframe_and_texture_24x24.png</file>
         <file>icons/merkaartor-actions/align_nodes.png</file>
         <file>icons/merkaartor-actions/axisalign.png</file>
         <file>icons/merkaartor-actions/break_apart_roads.png</file>
