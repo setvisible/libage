@@ -24,6 +24,9 @@
 #include <Core/SceneManager>
 #include <Core/Option>
 #include <OpenGL/Viewer>
+#include <Widgets/MainWidget>
+#include <Widgets/PointTableWidget>
+#include <Widgets/PointWidget>
 #include <Widgets/SceneToolBar>
 
 #include <QtCore/QDir>
@@ -44,22 +47,29 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
   , ui(new Ui::MainWindow)
   , m_sceneManager(new SceneManager(this))
-  , m_option(Q_NULLPTR)
+  , m_option(new Option(this))
   , m_undoRedoPanel(Q_NULLPTR)
   , m_dirty(false)
   , m_physicalFile(false)
 {
     ui->setupUi(this);
+    ui->splitter->setStretchFactor(0,0);
+    ui->splitter->setStretchFactor(1,10);
 
     this->setWindowTitle(QString("%0 v%1").arg(STR_APPLICATION_NAME).arg(STR_APPLICATION_VERSION));
     this->setWindowIcon(QIcon(":/icons/logo/maps-pin-place.ico"));
     this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     this->setAcceptDrops(true);
 
+    m_option->setScene(m_sceneManager->scene());
+
 
     /* [1] */
     /* Connect the GUI to the Scene Manager. */
     ui->viewer->setModel(m_sceneManager);
+    ui->mainWidget->pointTableWidget()->setModel(m_sceneManager);
+    ui->mainWidget->pointWidget()->setModel(m_sceneManager);
+
 
     /* [2] */
     /* Connect the Scene Manager to the MainWindow. */
@@ -81,9 +91,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     /* [5] */
     /* Connect the rest of the GUI widgets together (selection, focus, etc.) */
-
-    m_option = new Option(this);
-    m_option->setScene(m_sceneManager->scene());
     ui->sceneToolBar->connect(m_option);
 
 
