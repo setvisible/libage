@@ -8,8 +8,12 @@ HEADERS += \
     $$PWD/visitor/computetangentvisitor.h \
     $$PWD/utils/CommonFunctions.h \
     $$PWD/abstractscenemodel.h \
+    $$PWD/option.h \
+    $$PWD/optioncommand.h \
+    $$PWD/optionengine.h \
     $$PWD/scene.h \
     $$PWD/scenecommand.h \
+    $$PWD/scenemodelmanager.h \
     $$PWD/scenemanager.h
 
 SOURCES += \
@@ -22,6 +26,10 @@ SOURCES += \
     $$PWD/visitor/computetangentvisitor.cpp \
     $$PWD/utils/CommonFunctions.cpp \
     $$PWD/abstractscenemodel.cpp \
+    $$PWD/option.cpp \
+    $$PWD/optioncommand.cpp \
+    $$PWD/optionengine.cpp \
     $$PWD/scene.cpp \
     $$PWD/scenecommand.cpp \
+    $$PWD/scenemodelmanager.cpp \
     $$PWD/scenemanager.cpp
