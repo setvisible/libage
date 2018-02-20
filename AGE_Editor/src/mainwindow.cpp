@@ -24,6 +24,7 @@
 #include <Core/SceneManager>
 #include <Core/Option>
 #include <OpenGL/Viewer>
+#include <Widgets/SceneToolBar>
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
@@ -83,6 +84,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     m_option = new Option(this);
     m_option->setScene(m_sceneManager->scene());
+    ui->sceneToolBar->connect(m_option);
 
 
     createActions();
@@ -122,7 +124,7 @@ void MainWindow::newFile()
         m_sceneManager->clear();
 
         /* Settings */
-        //ui->sceneToolBar->reset();
+        ui->sceneToolBar->reset();
 
         this->setClean();
     }
@@ -379,12 +381,54 @@ void MainWindow::createActions()
     ui->action_ZoomOut->setStatusTip(tr("Zoom Out"));
     //connect(ui->action_ZoomOut, SIGNAL(triggered()), ui->viewer, SLOT(zoomOut()));
 
-    ui->action_Wireframe->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_W));
-    ui->action_Wireframe->setStatusTip(tr("Wireframe On/Off"));
+
+    ui->action_Axes->setStatusTip(tr("Show Axes"));
+    ui->action_Axes->setCheckable(true);
+    ui->action_Axes->setChecked(false);
+    connect(ui->action_Axes, SIGNAL(toggled(bool)), m_option, SLOT(setAxesVisible(bool)));
+    connect(m_option, SIGNAL(axesVisibilityChanged(bool)), ui->action_Axes, SLOT(setChecked(bool)));
+
+    ui->action_Grid->setStatusTip(tr("Show Grid"));
+    ui->action_Grid->setCheckable(true);
+    ui->action_Grid->setChecked(false);
+    connect(ui->action_Grid, SIGNAL(toggled(bool)), m_option, SLOT(setGridVisible(bool)));
+    connect(m_option, SIGNAL(gridVisibilityChanged(bool)), ui->action_Grid, SLOT(setChecked(bool)));
+
+    ui->action_Background->setStatusTip(tr("Show Background"));
+    ui->action_Background->setCheckable(true);
+    ui->action_Background->setChecked(false);
+    connect(ui->action_Background, SIGNAL(toggled(bool)), m_option, SLOT(setBackgroundVisible(bool)));
+    connect(m_option, SIGNAL(backgroundVisibilityChanged(bool)), ui->action_Background, SLOT(setChecked(bool)));
+
+    ui->action_Contour->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_1));
+    ui->action_Contour->setStatusTip(tr("Show Contour"));
+    ui->action_Contour->setCheckable(true);
+    ui->action_Contour->setChecked(false);
+    connect(ui->action_Contour, SIGNAL(toggled(bool)), m_option, SLOT(setContourVisible(bool)));
+    connect(m_option, SIGNAL(contourVisibilityChanged(bool)), ui->action_Contour, SLOT(setChecked(bool)));
+
+    ui->action_Wireframe->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_2));
+    ui->action_Wireframe->setStatusTip(tr("Show Wireframe"));
     ui->action_Wireframe->setCheckable(true);
     ui->action_Wireframe->setChecked(false);
-    connect(ui->action_Wireframe, SIGNAL(toggled(bool)), m_option, SLOT(setWireframe(bool)));
-    connect(m_option, SIGNAL(wireframeChanged(bool)), ui->action_Wireframe, SLOT(setChecked(bool)));
+    connect(ui->action_Wireframe, SIGNAL(toggled(bool)), m_option, SLOT(setWireframeVisible(bool)));
+    connect(m_option, SIGNAL(wireframeVisibilityChanged(bool)), ui->action_Wireframe, SLOT(setChecked(bool)));
+
+    ui->action_Texture->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_3));
+    ui->action_Texture->setStatusTip(tr("Show Texture"));
+    ui->action_Texture->setCheckable(true);
+    ui->action_Texture->setChecked(true);
+    connect(ui->action_Texture, SIGNAL(toggled(bool)), m_option, SLOT(setTextureVisible(bool)));
+    connect(m_option, SIGNAL(textureVisibilityChanged(bool)), ui->action_Texture, SLOT(setChecked(bool)));
+
+    ui->action_WireframeAndTexture->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_4));
+    ui->action_WireframeAndTexture->setStatusTip(tr("Show Wireframe and Texture"));
+    ui->action_WireframeAndTexture->setCheckable(true);
+    ui->action_WireframeAndTexture->setChecked(false);
+    connect(ui->action_WireframeAndTexture, SIGNAL(toggled(bool)), m_option, SLOT(setWireframeAndTextureVisible(bool)));
+    connect(m_option, SIGNAL(wireframeAndTextureVisibilityChanged(bool)), ui->action_WireframeAndTexture, SLOT(setChecked(bool)));
+
+
     //! [3]
 
     //! [4] Database
