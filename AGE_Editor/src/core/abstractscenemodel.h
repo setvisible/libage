@@ -68,25 +68,22 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     /* Public Setters */
-    Q_INVOKABLE virtual bool insertPoint(const int index, const AGE::PointPtr &point) {
+    Q_INVOKABLE virtual void insertPoint(const int index, const AGE::PointPtr &point) {
         Q_UNUSED(index);
         Q_UNUSED(point);
-        return false;
     }
 
-    Q_INVOKABLE virtual bool setPoint(const int index, const AGE::PointPtr &point) {
+    Q_INVOKABLE virtual void setPoint(const int index, const AGE::PointPtr &point) {
         Q_UNUSED(index);
         Q_UNUSED(point);
-        return false;
     }
 
-    Q_INVOKABLE virtual bool removePoint(const int index) {
+    Q_INVOKABLE virtual void removePoint(const int index) {
         Q_UNUSED(index);
-        return false;
     }
 
-    Q_INVOKABLE virtual bool setPointSelection(const QSet<int> indexes);
-    Q_INVOKABLE virtual bool setElementSelection(const QSet<int> indexes);
+    Q_INVOKABLE virtual void setPointSelection(const QSet<int> indexes);
+    Q_INVOKABLE virtual void setElementSelection(const QSet<int> indexes);
 
 
 };

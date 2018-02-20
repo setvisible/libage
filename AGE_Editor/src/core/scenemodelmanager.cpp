@@ -71,7 +71,7 @@ SceneModelManager::SceneModelManager(QObject *parent) : AbstractSceneModel(paren
  */
 void SceneModelManager::clear()
 {
-    m_world.clear();
+    m_world->clear();
     m_scene->clear();
 }
 
@@ -114,10 +114,24 @@ osg::ref_ptr<osg::Group> SceneModelManager::sceneNode() const
 
 /******************************************************************************
  ******************************************************************************/
+/// Populate the Scene from the World.
 void SceneModelManager::populateScene()
 {
+    Q_ASSERT(m_world.data());
 
-   // m_scene->
+    int index = m_world->m_points.count();
+    while (index>0) {
+        index--;
+        AGE::PointPtr point = m_world->m_points.at(index);
+        m_scene->insertPoint(0, point);
+        emit pointInserted(0, point);
+    }
+
+    // ...
+
+
+    emit changed();
+    regenerate();
 }
 
 /******************************************************************************
@@ -153,27 +167,52 @@ AGE::ElementPtr SceneModelManager::elementAt(const int index) const
  ******************************************************************************/
 void SceneModelManager::insertPoint(const int index, const AGE::PointPtr &point)
 {
-
-    // Command here
-
-    Q_UNUSED(index);
-    Q_UNUSED(point);
+    m_scene->insertPoint(index, point);
+    m_world->insertPoint(index, point);
+    emit pointInserted(index, point);
+    emit changed();
+    regenerate();
 }
 
 void SceneModelManager::setPoint(const int index, const AGE::PointPtr &point)
 {
-    Q_UNUSED(index);
-    Q_UNUSED(point);
+    if (index < 0 || index >= m_world->pointCount())
+        return;
+
+    const AGE::PointPtr old = m_world->pointAt(index);
+    if (old == point)
+        return;
+
+    m_scene->setPointAt(index, point);
+    m_world->setPointAt(index, point);
+
+    emit pointChanged(index, point);
+    emit changed();
+    regenerate();
 }
 
 void SceneModelManager::removePoint(const int index)
 {
-    Q_UNUSED(index);
+    if (m_selectedPointIndexes.remove( index )) {
+        emit selectionPointChanged();
+    }
+    if (index >= 0 && index < m_world->pointCount()) {
+
+        m_scene->removePointAt(index);
+        m_world->removePointAt(index);
+
+        emit pointRemoved(index);
+        emit changed();
+        regenerate();
+    }
 }
 
 void SceneModelManager::setPointSelection(const QSet<int> indexes)
 {
-
+    if (m_selectedPointIndexes == indexes)
+        return;
+    m_selectedPointIndexes = indexes;
+    emit selectionPointChanged();
 }
 
 void SceneModelManager::setElementSelection(const QSet<int> indexes)

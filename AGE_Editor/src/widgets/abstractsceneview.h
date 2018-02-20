@@ -17,6 +17,9 @@
 #ifndef WIDGETS_ABSTRACT_SCENE_VIEW_H
 #define WIDGETS_ABSTRACT_SCENE_VIEW_H
 
+#define C_SHORT_DELAY_MSEC 10
+#define C_LONG_DELAY_MSEC 100
+
 #include <AGE/Globals>
 #include <QtWidgets/QWidget>
 

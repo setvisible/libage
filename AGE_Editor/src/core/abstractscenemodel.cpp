@@ -39,14 +39,12 @@
  */
 
 /* Public Setters */
-bool AbstractSceneModel::setPointSelection(const QSet<int> indexes)
+void AbstractSceneModel::setPointSelection(const QSet<int> indexes)
 {
     Q_UNUSED(indexes);
-    return false;
 }
 
-bool AbstractSceneModel::setElementSelection(const QSet<int> indexes)
+void AbstractSceneModel::setElementSelection(const QSet<int> indexes)
 {
     Q_UNUSED(indexes);
-    return false;
 }
