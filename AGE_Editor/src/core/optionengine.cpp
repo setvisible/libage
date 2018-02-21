@@ -39,6 +39,9 @@ void OptionEngine::clear()
     m_gridVisible = false;
     m_backgroundVisible = false;
     // --
+    m_masterVisible = true;
+    m_slaveVisible = true;
+    // --
     m_contourVisible = false;
     m_wireframeVisible = false;
     m_textureVisible = true;
@@ -72,6 +75,17 @@ bool OptionEngine::isGridVisible() const
 bool OptionEngine::isBackgroundVisible() const
 {
     return m_backgroundVisible;
+}
+
+// -----------------------------------------------------------------------------
+bool OptionEngine::isMasterVisible() const
+{
+    return m_masterVisible;
+}
+
+bool OptionEngine::isSlaveVisible() const
+{
+    return m_slaveVisible;
 }
 
 // -----------------------------------------------------------------------------
@@ -125,6 +139,27 @@ void OptionEngine::setBackgroundVisible(bool visible)
     m_backgroundVisible = visible;
     m_scene->setBackgroundVisible(m_backgroundVisible);
     emit backgroundVisibilityChanged(visible);
+}
+
+// -----------------------------------------------------------------------------
+void OptionEngine::setMasterVisible(bool visible)
+{
+    Q_ASSERT(m_scene);
+    if (m_masterVisible == visible)
+        return;
+    m_masterVisible = visible;
+    m_scene->setMasterVisible(visible);
+    emit masterVisibilityChanged(visible);
+}
+
+void OptionEngine::setSlaveVisible(bool visible)
+{
+    Q_ASSERT(m_scene);
+    if (m_slaveVisible == visible)
+        return;
+    m_slaveVisible = visible;
+    m_scene->setSlaveVisible(visible);
+    emit slaveVisibilityChanged(visible);
 }
 
 // -----------------------------------------------------------------------------

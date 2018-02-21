@@ -32,11 +32,13 @@ class SetAxesVisible;
 class SetGridVisible;
 class SetBackgroundVisible;
 // --
+class SetMasterVisible;
+class SetSlaveVisible;
+// --
 class SetContourVisible;
 class SetWireframeVisible;
 class SetTextureVisible;
 class SetWireframeAndTextureVisible;
-
 }
 
 class Option : public OptionEngine
@@ -54,6 +56,9 @@ public Q_SLOTS:
     virtual void setGridVisible(bool visible) Q_DECL_OVERRIDE;
     virtual void setBackgroundVisible(bool visible) Q_DECL_OVERRIDE;
     // --
+    virtual void setMasterVisible(bool visible) Q_DECL_OVERRIDE;
+    virtual void setSlaveVisible(bool visible) Q_DECL_OVERRIDE;
+    // --
     virtual void setContourVisible(bool visible) Q_DECL_OVERRIDE;
     virtual void setWireframeVisible(bool visible) Q_DECL_OVERRIDE;
     virtual void setTextureVisible(bool visible) Q_DECL_OVERRIDE;
@@ -65,6 +70,9 @@ protected:
     friend class OptionCommand::SetGridVisible;
     friend class OptionCommand::SetBackgroundVisible;
     // --
+    friend class OptionCommand::SetMasterVisible;
+    friend class OptionCommand::SetSlaveVisible;
+    // --
     friend class OptionCommand::SetContourVisible;
     friend class OptionCommand::SetWireframeVisible;
     friend class OptionCommand::SetTextureVisible;
@@ -75,11 +83,13 @@ protected:
     void _q_setGridVisible(bool visible);
     void _q_setBackgroundVisible(bool visible);
     // --
+    void _q_setMasterVisible(bool visible);
+    void _q_setSlaveVisible(bool visible);
+    // --
     void _q_setContourVisible(bool visible);
     void _q_setWireframeVisible(bool visible);
     void _q_setTextureVisible(bool visible);
     void _q_setWireframeAndTextureVisible(bool visible);
-
 
 private:
     QUndoStack* m_undoStack;

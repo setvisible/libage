@@ -38,6 +38,9 @@ public:
     bool isGridVisible() const;
     bool isBackgroundVisible() const;
     // --
+    bool isMasterVisible() const;
+    bool isSlaveVisible() const;
+    // --
     bool isContourVisible() const;
     bool isWireframeVisible() const;
     bool isTextureVisible() const;
@@ -47,6 +50,9 @@ Q_SIGNALS:
     void axesVisibilityChanged(bool visible);
     void gridVisibilityChanged(bool visible);
     void backgroundVisibilityChanged(bool visible);
+    // --
+    void masterVisibilityChanged(bool visible);
+    void slaveVisibilityChanged(bool visible);
     // --
     void contourVisibilityChanged(bool visible);
     void wireframeVisibilityChanged(bool visible);
@@ -60,11 +66,13 @@ public Q_SLOTS:
     virtual void setGridVisible(bool visible);
     virtual void setBackgroundVisible(bool visible);
     // --
+    virtual void setMasterVisible(bool visible);
+    virtual void setSlaveVisible(bool visible);
+    // --
     virtual void setContourVisible(bool visible);
     virtual void setWireframeVisible(bool visible);
     virtual void setTextureVisible(bool visible);
     virtual void setWireframeAndTextureVisible(bool visible);
-
 
     /// \todo change color of points
     /// \todo change size of points
@@ -77,6 +85,9 @@ private:
     bool m_axesVisible;
     bool m_gridVisible;
     bool m_backgroundVisible;
+    // --
+    bool m_masterVisible;
+    bool m_slaveVisible;
     // --
     bool m_contourVisible;
     bool m_wireframeVisible;

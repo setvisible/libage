@@ -23,10 +23,12 @@
  *  \brief The class Option manages the view options for the scene.
  *
  * For example:
- * \li Wireframe
- * \li Show grid
- * \li Show points
+ * \li Axes On/Off
+ * \li Grid On/Off
+ * \li Wireframe On/Off
+ * \li Textures On/Off
  * \li ...
+ *
  */
 
 Option::Option(QObject *parent) : OptionEngine(parent)
@@ -61,6 +63,17 @@ void Option::setGridVisible(bool visible)
 void Option::setBackgroundVisible(bool visible)
 {
     m_undoStack->push(new OptionCommand::SetBackgroundVisible(this, visible));
+}
+
+// -----------------------------------------------------------------------------
+void Option::setMasterVisible(bool visible)
+{
+    m_undoStack->push(new OptionCommand::SetMasterVisible(this, visible));
+}
+
+void Option::setSlaveVisible(bool visible)
+{
+    m_undoStack->push(new OptionCommand::SetSlaveVisible(this, visible));
 }
 
 // -----------------------------------------------------------------------------
@@ -100,6 +113,17 @@ void Option::_q_setGridVisible(bool visible)
 void Option::_q_setBackgroundVisible(bool visible)
 {
     OptionEngine::setBackgroundVisible(visible);
+}
+
+// -----------------------------------------------------------------------------
+void Option::_q_setMasterVisible(bool visible)
+{
+    OptionEngine::setMasterVisible(visible);
+}
+
+void Option::_q_setSlaveVisible(bool visible)
+{
+    OptionEngine::setSlaveVisible(visible);
 }
 
 // -----------------------------------------------------------------------------

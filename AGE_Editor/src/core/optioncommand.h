@@ -70,6 +70,38 @@ private:
 
 /******************************************************************************
  ******************************************************************************/
+class SetMasterVisible : public QUndoCommand
+{
+public:
+    SetMasterVisible(Option *opt, bool visible, QUndoCommand *parent = Q_NULLPTR)
+        : QUndoCommand(parent), m_opt(opt), m_visible(visible)
+    { this->setText(visible
+                    ? QObject::tr("Master On")
+                    : QObject::tr("Master Off")); }
+    virtual void undo() { m_opt->_q_setMasterVisible(!m_visible); }
+    virtual void redo() { m_opt->_q_setMasterVisible(m_visible); }
+private:
+    Option *m_opt;
+    bool m_visible;
+};
+
+class SetSlaveVisible : public QUndoCommand
+{
+public:
+    SetSlaveVisible(Option *opt, bool visible, QUndoCommand *parent = Q_NULLPTR)
+        : QUndoCommand(parent), m_opt(opt), m_visible(visible)
+    { this->setText(visible
+                    ? QObject::tr("Slave On")
+                    : QObject::tr("Slave Off")); }
+    virtual void undo() { m_opt->_q_setSlaveVisible(!m_visible); }
+    virtual void redo() { m_opt->_q_setSlaveVisible(m_visible); }
+private:
+    Option *m_opt;
+    bool m_visible;
+};
+
+/******************************************************************************
+ ******************************************************************************/
 class SetContourVisible : public QUndoCommand
 {
 public:
@@ -129,10 +161,6 @@ private:
     Option *m_opt;
     bool m_visible;
 };
-
-/******************************************************************************
- ******************************************************************************/
-
 
 } // namespace OptionCommand
 
