@@ -388,7 +388,7 @@ void MainWindow::createActions()
     ui->action_ZoomOut->setStatusTip(tr("Zoom Out"));
     //connect(ui->action_ZoomOut, SIGNAL(triggered()), ui->viewer, SLOT(zoomOut()));
 
-
+    // --
     ui->action_Axes->setStatusTip(tr("Show Axes"));
     ui->action_Axes->setCheckable(true);
     ui->action_Axes->setChecked(false);
@@ -407,6 +407,20 @@ void MainWindow::createActions()
     connect(ui->action_Background, SIGNAL(toggled(bool)), m_option, SLOT(setBackgroundVisible(bool)));
     connect(m_option, SIGNAL(backgroundVisibilityChanged(bool)), ui->action_Background, SLOT(setChecked(bool)));
 
+    // --
+    ui->action_Master->setStatusTip(tr("Show Master"));
+    ui->action_Master->setCheckable(true);
+    ui->action_Master->setChecked(true);
+    connect(ui->action_Master, SIGNAL(toggled(bool)), m_option, SLOT(setMasterVisible(bool)));
+    connect(m_option, SIGNAL(masterVisibilityChanged(bool)), ui->action_Master, SLOT(setChecked(bool)));
+
+    ui->action_Slave->setStatusTip(tr("Show Slave"));
+    ui->action_Slave->setCheckable(true);
+    ui->action_Slave->setChecked(true);
+    connect(ui->action_Slave, SIGNAL(toggled(bool)), m_option, SLOT(setSlaveVisible(bool)));
+    connect(m_option, SIGNAL(slaveVisibilityChanged(bool)), ui->action_Slave, SLOT(setChecked(bool)));
+
+    // --
     ui->action_Contour->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_1));
     ui->action_Contour->setStatusTip(tr("Show Contour"));
     ui->action_Contour->setCheckable(true);

@@ -45,6 +45,9 @@ private:
     QAction *m_buttonGrid;
     QAction *m_buttonBackground;
     // --
+    QAction *m_buttonMaster;
+    QAction *m_buttonSlave;
+    // --
     QAction *m_buttonContour;
     QAction *m_buttonWireframe;
     QAction *m_buttonTexture;

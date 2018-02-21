@@ -60,7 +60,16 @@ void SceneToolBar::connect(Option *option)
                             m_option, SLOT(setBackgroundVisible(bool)));
         QObject::disconnect(m_option, SIGNAL(backgroundVisibilityChanged(bool)),
                             m_buttonBackground, SLOT(setChecked(bool)));
+        // --
+        QObject::disconnect(m_buttonMaster, SIGNAL(toggled(bool)),
+                            m_option, SLOT(setMasterVisible(bool)));
+        QObject::disconnect(m_option, SIGNAL(masterVisibilityChanged(bool)),
+                            m_buttonMaster, SLOT(setChecked(bool)));
 
+        QObject::disconnect(m_buttonSlave, SIGNAL(toggled(bool)),
+                            m_option, SLOT(setSlaveVisible(bool)));
+        QObject::disconnect(m_option, SIGNAL(slaveVisibilityChanged(bool)),
+                            m_buttonSlave, SLOT(setChecked(bool)));
         // --
         QObject::disconnect(m_buttonContour, SIGNAL(toggled(bool)),
                             m_option, SLOT(setContourVisible(bool)));
@@ -82,7 +91,9 @@ void SceneToolBar::connect(Option *option)
         QObject::disconnect(m_option, SIGNAL(wireframeAndTextureVisibilityChanged(bool)),
                             m_buttonWireframeAndTexure, SLOT(setChecked(bool)));
     }
+
     m_option = option;
+
     if (m_option) {
         QObject::connect(m_buttonAxes, SIGNAL(toggled(bool)),
                          m_option, SLOT(setAxesVisible(bool)));
@@ -98,6 +109,16 @@ void SceneToolBar::connect(Option *option)
                          m_option, SLOT(setBackgroundVisible(bool)));
         QObject::connect(m_option, SIGNAL(backgroundVisibilityChanged(bool)),
                          m_buttonBackground, SLOT(setChecked(bool)));
+        // --
+        QObject::connect(m_buttonMaster, SIGNAL(toggled(bool)),
+                         m_option, SLOT(setMasterVisible(bool)));
+        QObject::connect(m_option, SIGNAL(masterVisibilityChanged(bool)),
+                         m_buttonMaster, SLOT(setChecked(bool)));
+
+        QObject::connect(m_buttonSlave, SIGNAL(toggled(bool)),
+                         m_option, SLOT(setSlaveVisible(bool)));
+        QObject::connect(m_option, SIGNAL(slaveVisibilityChanged(bool)),
+                         m_buttonSlave, SLOT(setChecked(bool)));
         // --
         QObject::connect(m_buttonContour, SIGNAL(toggled(bool)),
                          m_option, SLOT(setContourVisible(bool)));
@@ -128,6 +149,9 @@ void SceneToolBar::reset()
     m_buttonAxes->setChecked(false);
     m_buttonGrid->setChecked(false);
     m_buttonBackground->setChecked(false);
+    // --
+    m_buttonMaster->setChecked(true);
+    m_buttonSlave->setChecked(true);
     // --
     m_buttonContour->setChecked(false);
     m_buttonWireframe->setChecked(false);
@@ -162,6 +186,23 @@ void SceneToolBar::createActions()
         m_buttonBackground->setCheckable(true);
         m_buttonBackground->setStatusTip(tr("Show Background"));
         this->addAction(m_buttonBackground);
+    }
+    this->addSeparator();
+    {
+        m_buttonMaster = new QAction(
+                    QIcon(":/icons/menu/view_master_24x24.png"),
+                    tr("Show &Master"), this);
+        m_buttonMaster->setCheckable(true);
+        m_buttonMaster->setStatusTip(tr("Show Master"));
+        this->addAction(m_buttonMaster);
+    }
+    {
+        m_buttonSlave = new QAction(
+                    QIcon(":/icons/menu/view_slave_24x24.png"),
+                    tr("Show &Slave"), this);
+        m_buttonSlave->setCheckable(true);
+        m_buttonSlave->setStatusTip(tr("Show Slave"));
+        this->addAction(m_buttonSlave);
     }
     this->addSeparator();
     {

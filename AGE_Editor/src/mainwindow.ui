@@ -82,6 +82,9 @@
     <addaction name="action_Grid"/>
     <addaction name="action_Background"/>
     <addaction name="separator"/>
+    <addaction name="action_Master"/>
+    <addaction name="action_Slave"/>
+    <addaction name="separator"/>
     <addaction name="action_Contour"/>
     <addaction name="action_Wireframe"/>
     <addaction name="action_Texture"/>
@@ -428,49 +431,13 @@
     <string>Show Undo/Redo Panel</string>
    </property>
   </action>
-  <action name="action_Wireframe">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/icons/menu/view_wireframe_24x24.png</normaloff>:/icons/menu/view_wireframe_24x24.png</iconset>
-   </property>
-   <property name="text">
-    <string>Wireframe</string>
-   </property>
-  </action>
-  <action name="action_Contour">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/icons/menu/view_contour_24x24.png</normaloff>:/icons/menu/view_contour_24x24.png</iconset>
-   </property>
-   <property name="text">
-    <string>Contour</string>
-   </property>
-  </action>
-  <action name="action_Texture">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/icons/menu/view_texture_24x24.png</normaloff>:/icons/menu/view_texture_24x24.png</iconset>
-   </property>
-   <property name="text">
-    <string>Texture</string>
-   </property>
-  </action>
-  <action name="action_WireframeAndTexture">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/icons/menu/view_wireframe_and_texture_24x24.png</normaloff>:/icons/menu/view_wireframe_and_texture_24x24.png</iconset>
-   </property>
-   <property name="text">
-    <string>Wireframe and Texture</string>
-   </property>
-  </action>
   <action name="action_Axes">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/icons/menu/view_axes_24x24.png</normaloff>:/icons/menu/view_axes_24x24.png</iconset>
    </property>
    <property name="text">
-    <string>Axes</string>
+    <string>&amp;Axes</string>
    </property>
   </action>
   <action name="action_Grid">
@@ -479,7 +446,7 @@
      <normaloff>:/icons/menu/view_grid_24x24.png</normaloff>:/icons/menu/view_grid_24x24.png</iconset>
    </property>
    <property name="text">
-    <string>Grid</string>
+    <string>&amp;Grid</string>
    </property>
   </action>
   <action name="action_Background">
@@ -488,7 +455,61 @@
      <normaloff>:/icons/menu/view_background_24x24.png</normaloff>:/icons/menu/view_background_24x24.png</iconset>
    </property>
    <property name="text">
-    <string>Background</string>
+    <string>&amp;Background</string>
+   </property>
+  </action>
+  <action name="action_Master">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/menu/view_master_24x24.png</normaloff>:/icons/menu/view_master_24x24.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Master</string>
+   </property>
+  </action>
+  <action name="action_Slave">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/menu/view_slave_24x24.png</normaloff>:/icons/menu/view_slave_24x24.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Slave</string>
+   </property>
+  </action>
+  <action name="action_Contour">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/menu/view_contour_24x24.png</normaloff>:/icons/menu/view_contour_24x24.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Contour</string>
+   </property>
+  </action>
+  <action name="action_Wireframe">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/menu/view_wireframe_24x24.png</normaloff>:/icons/menu/view_wireframe_24x24.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Wireframe</string>
+   </property>
+  </action>
+  <action name="action_Texture">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/menu/view_texture_24x24.png</normaloff>:/icons/menu/view_texture_24x24.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Texture</string>
+   </property>
+  </action>
+  <action name="action_WireframeAndTexture">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/menu/view_wireframe_and_texture_24x24.png</normaloff>:/icons/menu/view_wireframe_and_texture_24x24.png</iconset>
+   </property>
+   <property name="text">
+    <string>Wire&amp;frame and Texture</string>
    </property>
   </action>
  </widget>
