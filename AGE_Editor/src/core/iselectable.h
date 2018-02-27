@@ -14,8 +14,8 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CORE_ISELECTABLE_H
-#define CORE_ISELECTABLE_H
+#ifndef CORE_I_SELECTABLE_H
+#define CORE_I_SELECTABLE_H
 
 #include <osg/Geode>
 
@@ -46,4 +46,4 @@ private:
 };
 
 
-#endif // CORE_ISELECTABLE_H
+#endif // CORE_I_SELECTABLE_H

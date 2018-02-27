@@ -9,14 +9,14 @@ HEADERS += \
     $$PWD/visitor/selectionvisitor.h \
     $$PWD/utils/CommonFunctions.h \
     $$PWD/abstractscenemodel.h \
+    $$PWD/iselectable.h \
     $$PWD/option.h \
     $$PWD/optioncommand.h \
     $$PWD/optionengine.h \
     $$PWD/scene.h \
     $$PWD/scenecommand.h \
-    $$PWD/scenemodelmanager.h \
     $$PWD/scenemanager.h \
-    $$PWD/iselectable.h
+    $$PWD/scenemodelmanager.h
 
 SOURCES += \
     $$PWD/node/edgenode.cpp \
@@ -29,11 +29,11 @@ SOURCES += \
     $$PWD/visitor/selectionvisitor.cpp \
     $$PWD/utils/CommonFunctions.cpp \
     $$PWD/abstractscenemodel.cpp \
+    $$PWD/iselectable.cpp \
     $$PWD/option.cpp \
     $$PWD/optioncommand.cpp \
     $$PWD/optionengine.cpp \
     $$PWD/scene.cpp \
     $$PWD/scenecommand.cpp \
-    $$PWD/scenemodelmanager.cpp \
     $$PWD/scenemanager.cpp \
-    $$PWD/iselectable.cpp
+    $$PWD/scenemodelmanager.cpp
