@@ -37,6 +37,7 @@ public:
     bool isAxesVisible() const;
     bool isGridVisible() const;
     bool isBackgroundVisible() const;
+    bool isLabelVisible() const;
     // --
     bool isMasterVisible() const;
     bool isSlaveVisible() const;
@@ -50,6 +51,7 @@ Q_SIGNALS:
     void axesVisibilityChanged(bool visible);
     void gridVisibilityChanged(bool visible);
     void backgroundVisibilityChanged(bool visible);
+    void labelVisibilityChanged(bool visible);
     // --
     void masterVisibilityChanged(bool visible);
     void slaveVisibilityChanged(bool visible);
@@ -65,6 +67,7 @@ public Q_SLOTS:
     virtual void setAxesVisible(bool visible);
     virtual void setGridVisible(bool visible);
     virtual void setBackgroundVisible(bool visible);
+    virtual void setLabelVisible(bool visible);
     // --
     virtual void setMasterVisible(bool visible);
     virtual void setSlaveVisible(bool visible);
@@ -85,6 +88,7 @@ private:
     bool m_axesVisible;
     bool m_gridVisible;
     bool m_backgroundVisible;
+    bool m_labelVisible;
     // --
     bool m_masterVisible;
     bool m_slaveVisible;

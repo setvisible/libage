@@ -31,6 +31,7 @@ namespace OptionCommand {
 class SetAxesVisible;
 class SetGridVisible;
 class SetBackgroundVisible;
+class SetLabelVisible;
 // --
 class SetMasterVisible;
 class SetSlaveVisible;
@@ -55,6 +56,7 @@ public Q_SLOTS:
     virtual void setAxesVisible(bool visible) Q_DECL_OVERRIDE;
     virtual void setGridVisible(bool visible) Q_DECL_OVERRIDE;
     virtual void setBackgroundVisible(bool visible) Q_DECL_OVERRIDE;
+    virtual void setLabelVisible(bool visible) Q_DECL_OVERRIDE;
     // --
     virtual void setMasterVisible(bool visible) Q_DECL_OVERRIDE;
     virtual void setSlaveVisible(bool visible) Q_DECL_OVERRIDE;
@@ -69,6 +71,7 @@ protected:
     friend class OptionCommand::SetAxesVisible;
     friend class OptionCommand::SetGridVisible;
     friend class OptionCommand::SetBackgroundVisible;
+    friend class OptionCommand::SetLabelVisible;
     // --
     friend class OptionCommand::SetMasterVisible;
     friend class OptionCommand::SetSlaveVisible;
@@ -82,6 +85,7 @@ protected:
     void _q_setAxesVisible(bool visible);
     void _q_setGridVisible(bool visible);
     void _q_setBackgroundVisible(bool visible);
+    void _q_setLabelVisible(bool visible);
     // --
     void _q_setMasterVisible(bool visible);
     void _q_setSlaveVisible(bool visible);

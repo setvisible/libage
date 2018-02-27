@@ -44,6 +44,7 @@ private:
     QAction *m_buttonAxes;
     QAction *m_buttonGrid;
     QAction *m_buttonBackground;
+    QAction *m_buttonLabel;
     // --
     QAction *m_buttonMaster;
     QAction *m_buttonSlave;

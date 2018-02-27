@@ -60,6 +60,11 @@ void SceneToolBar::connect(Option *option)
                             m_option, SLOT(setBackgroundVisible(bool)));
         QObject::disconnect(m_option, SIGNAL(backgroundVisibilityChanged(bool)),
                             m_buttonBackground, SLOT(setChecked(bool)));
+
+        QObject::disconnect(m_buttonLabel, SIGNAL(toggled(bool)),
+                            m_option, SLOT(setLabelVisible(bool)));
+        QObject::disconnect(m_option, SIGNAL(labelVisibilityChanged(bool)),
+                            m_buttonLabel, SLOT(setChecked(bool)));
         // --
         QObject::disconnect(m_buttonMaster, SIGNAL(toggled(bool)),
                             m_option, SLOT(setMasterVisible(bool)));
@@ -109,6 +114,11 @@ void SceneToolBar::connect(Option *option)
                          m_option, SLOT(setBackgroundVisible(bool)));
         QObject::connect(m_option, SIGNAL(backgroundVisibilityChanged(bool)),
                          m_buttonBackground, SLOT(setChecked(bool)));
+
+        QObject::connect(m_buttonLabel, SIGNAL(toggled(bool)),
+                         m_option, SLOT(setLabelVisible(bool)));
+        QObject::connect(m_option, SIGNAL(labelVisibilityChanged(bool)),
+                         m_buttonLabel, SLOT(setChecked(bool)));
         // --
         QObject::connect(m_buttonMaster, SIGNAL(toggled(bool)),
                          m_option, SLOT(setMasterVisible(bool)));
@@ -149,6 +159,7 @@ void SceneToolBar::reset()
     m_buttonAxes->setChecked(false);
     m_buttonGrid->setChecked(false);
     m_buttonBackground->setChecked(false);
+    m_buttonLabel->setChecked(false);
     // --
     m_buttonMaster->setChecked(true);
     m_buttonSlave->setChecked(true);
@@ -186,6 +197,14 @@ void SceneToolBar::createActions()
         m_buttonBackground->setCheckable(true);
         m_buttonBackground->setStatusTip(tr("Show Background"));
         this->addAction(m_buttonBackground);
+    }
+    {
+        m_buttonLabel = new QAction(
+                    QIcon(":/icons/menu/view_label_24x24.png"),
+                    tr("Show &Label"), this);
+        m_buttonLabel->setCheckable(true);
+        m_buttonLabel->setStatusTip(tr("Show Label"));
+        this->addAction(m_buttonLabel);
     }
     this->addSeparator();
     {

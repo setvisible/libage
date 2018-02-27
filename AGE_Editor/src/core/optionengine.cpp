@@ -38,6 +38,7 @@ void OptionEngine::clear()
     m_axesVisible = false;
     m_gridVisible = false;
     m_backgroundVisible = false;
+    m_labelVisible = false;
     // --
     m_masterVisible = true;
     m_slaveVisible = true;
@@ -75,6 +76,11 @@ bool OptionEngine::isGridVisible() const
 bool OptionEngine::isBackgroundVisible() const
 {
     return m_backgroundVisible;
+}
+
+bool OptionEngine::isLabelVisible() const
+{
+    return m_labelVisible;
 }
 
 // -----------------------------------------------------------------------------
@@ -139,6 +145,16 @@ void OptionEngine::setBackgroundVisible(bool visible)
     m_backgroundVisible = visible;
     m_scene->setBackgroundVisible(m_backgroundVisible);
     emit backgroundVisibilityChanged(visible);
+}
+
+void OptionEngine::setLabelVisible(bool visible)
+{
+    Q_ASSERT(m_scene);
+    if (m_labelVisible == visible)
+        return;
+    m_labelVisible = visible;
+    m_scene->setLabelVisible(m_labelVisible);
+    emit labelVisibilityChanged(visible);
 }
 
 // -----------------------------------------------------------------------------

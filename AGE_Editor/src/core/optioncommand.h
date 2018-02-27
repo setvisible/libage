@@ -68,6 +68,21 @@ private:
     bool m_visible;
 };
 
+class SetLabelVisible : public QUndoCommand
+{
+public:
+    SetLabelVisible(Option *opt, bool visible, QUndoCommand *parent = Q_NULLPTR)
+        : QUndoCommand(parent), m_opt(opt), m_visible(visible)
+    { this->setText(visible
+                    ? QObject::tr("Label On")
+                    : QObject::tr("Label Off")); }
+    virtual void undo() { m_opt->_q_setLabelVisible(!m_visible); }
+    virtual void redo() { m_opt->_q_setLabelVisible(m_visible); }
+private:
+    Option *m_opt;
+    bool m_visible;
+};
+
 /******************************************************************************
  ******************************************************************************/
 class SetMasterVisible : public QUndoCommand

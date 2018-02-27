@@ -65,6 +65,11 @@ void Option::setBackgroundVisible(bool visible)
     m_undoStack->push(new OptionCommand::SetBackgroundVisible(this, visible));
 }
 
+void Option::setLabelVisible(bool visible)
+{
+    m_undoStack->push(new OptionCommand::SetLabelVisible(this, visible));
+}
+
 // -----------------------------------------------------------------------------
 void Option::setMasterVisible(bool visible)
 {
@@ -113,6 +118,11 @@ void Option::_q_setGridVisible(bool visible)
 void Option::_q_setBackgroundVisible(bool visible)
 {
     OptionEngine::setBackgroundVisible(visible);
+}
+
+void Option::_q_setLabelVisible(bool visible)
+{
+    OptionEngine::setLabelVisible(visible);
 }
 
 // -----------------------------------------------------------------------------
