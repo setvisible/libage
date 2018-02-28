@@ -18,7 +18,7 @@
 #define AGE_POINT_H
 
 #include <AGE/Globals>
-#include <AGE/Database/Coordinate>
+#include <AGE/Core/Coordinate>
 
 #include <QtCore/QSharedPointer>
 

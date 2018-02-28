@@ -69,6 +69,7 @@ INCLUDEPATH += $$PWD/../include/
 #-------------------------------------------------
 # SOURCES
 #-------------------------------------------------
+include($$PWD/core/core.pri)
 include($$PWD/database/database.pri)
 include($$PWD/io/io.pri)
 include($$PWD/math/math.pri)

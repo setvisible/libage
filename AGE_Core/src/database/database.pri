@@ -1,5 +1,4 @@
 HEADERS  += \
-    $$PWD/coordinate.h \
     $$PWD/edge.h \
     $$PWD/point.h \
     $$PWD/region.h \
@@ -7,7 +6,6 @@ HEADERS  += \
     $$PWD/world.h
 
 SOURCES += \
-    $$PWD/coordinate.cpp \
     $$PWD/edge.cpp \
     $$PWD/point.cpp \
     $$PWD/region.cpp \

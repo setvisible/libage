@@ -14,8 +14,8 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AGE_COORDINATE_H
-#define AGE_COORDINATE_H
+#ifndef AGE_CORE_COORDINATE_H
+#define AGE_CORE_COORDINATE_H
 
 #include <AGE/Globals>
 
@@ -95,4 +95,4 @@ QT_END_NAMESPACE
 
 
 
-#endif // AGE_COORDINATE_H
+#endif // AGE_CORE_COORDINATE_H
