@@ -20,7 +20,7 @@
 #include <AGE/Globals>
 #include <AGE/Database/Point>
 #include <AGE/Database/MasterElement>
-#include <AGE/Database/Scriptable>
+#include <AGE/Database/ScriptFile>
 
 #include <QtCore/QSharedPointer>
 #include <QtCore/QtContainerFwd> /* Forward Declarations of the Qt's Containers */
