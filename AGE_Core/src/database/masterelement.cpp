@@ -14,12 +14,4 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "region.h"
-
-using namespace AGE;
-
-Region::Region() : MasterElement()
-  , m_identifier(-1)
-{
-}
-
+#include "masterelement.h"

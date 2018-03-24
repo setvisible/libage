@@ -27,21 +27,21 @@
 
 using namespace AGE;
 
-Edge::Edge()
-    : m_identifier(-1)
-    , m_pid1(-1)
-    , m_pid2(-1)
-    , m_point1(PointPtr(0))
-    , m_point2(PointPtr(0))
+Edge::Edge() : MasterElement()
+  , m_identifier(-1)
+  , m_pid1(-1)
+  , m_pid2(-1)
+  , m_point1(PointPtr(0))
+  , m_point2(PointPtr(0))
 {
 }
 
-Edge::Edge(int identifier, int pid1, int pid2)
-    : m_identifier(identifier)
-    , m_pid1(pid1)
-    , m_pid2(pid2)
-    , m_point1(PointPtr(0))
-    , m_point2(PointPtr(0))
+Edge::Edge(int identifier, int pid1, int pid2) : MasterElement()
+  , m_identifier(identifier)
+  , m_pid1(pid1)
+  , m_pid2(pid2)
+  , m_point1(PointPtr(0))
+  , m_point2(PointPtr(0))
 {
 }
 

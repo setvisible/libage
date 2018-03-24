@@ -19,6 +19,7 @@
 
 #include <AGE/Globals>
 #include <AGE/Database/Point>
+#include <AGE/Database/MasterElement>
 #include <AGE/Database/Scriptable>
 
 #include <QtGlobal>
@@ -47,7 +48,7 @@ namespace AGE {
  *
  * \sa AGE::ScriptEngine::Script
  */
-class LIBAGESHARED_EXPORT Edge : public Scriptable
+class LIBAGESHARED_EXPORT Edge : public MasterElement
 {
 public:
     explicit Edge();
