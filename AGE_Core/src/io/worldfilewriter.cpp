@@ -95,7 +95,7 @@ AGE::WorldPtr WorldFileWriter::read(QIODevice &device, bool *ok)
 {
     AGE_D(WorldFileWriter);
 
-    AGE::WorldPtr world = AGE::WorldPtr(new AGE::World);
+    AGE::WorldPtr world = AGE::WorldPtr(new AGE::MasterWorld);
     Q_ASSERT(!world.isNull());
 
     d->m_errors.clear();

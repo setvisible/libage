@@ -22,7 +22,7 @@
 #include <QtCore/QSet>
 
 #include <AGE/Globals>
-#include <AGE/Database/World>
+#include <AGE/Database/MasterWorld>
 
 #include <osg/ref_ptr>
 #include <osg/Group>
@@ -68,7 +68,7 @@ public Q_SLOTS:
 
 private:
     Scene* m_scene;
-    QSharedPointer<AGE::World> m_world;
+    QSharedPointer<AGE::MasterWorld> m_masterWorld;
 
     QSet<int> m_selectedPointIndexes;
 

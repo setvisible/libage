@@ -18,7 +18,7 @@
 #define IO_WORLD_FILE_WRITER_H
 
 #include <AGE/Globals>
-#include <AGE/Database/World>
+#include <AGE/Database/MasterWorld>
 
 #include <QtCore/QStringList>
 #include <QtCore/QSharedPointer>
