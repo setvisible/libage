@@ -14,37 +14,36 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AGE_DATABASE_POINT_H
-#define AGE_DATABASE_POINT_H
+#ifndef AGE_WORLD_SCRIPT_H
+#define AGE_WORLD_SCRIPT_H
 
 #include <AGE/Globals>
-#include <AGE/Core/Coordinate>
 
+#include <QtCore/QString>
 #include <QtCore/QSharedPointer>
+
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-
 namespace AGE {
 
 /**
- * A point location in 3D Geodesic space.
+ * The Script contains the recipe to auto-generate an Element,
+ * based on its geometry and its Property.
  */
-class LIBAGESHARED_EXPORT Point : public Coordinate
+class LIBAGESHARED_EXPORT Script
 {
 public:
-    explicit Point();
-    explicit Point(int identifier,
-                   GeoCoordinate longitude,
-                   GeoCoordinate latitude,
-                   GeoCoordinate altitude);
+    explicit Script();
 
+private:
+    QString m_file;
 
 };
 
-typedef QSharedPointer<Point> PointPtr;
+typedef QSharedPointer<Script> ScriptPtr;
 
 } // namespace AGE
 
@@ -52,4 +51,4 @@ typedef QSharedPointer<Point> PointPtr;
 }
 #endif
 
-#endif // AGE_DATABASE_POINT_H
+#endif // AGE_WORLD_SCRIPT_H

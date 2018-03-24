@@ -14,11 +14,12 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AGE_DATABASE_POINT_H
-#define AGE_DATABASE_POINT_H
+#ifndef AGE_WORLD_PROPERTY_H
+#define AGE_WORLD_PROPERTY_H
 
 #include <AGE/Globals>
-#include <AGE/Core/Coordinate>
+#include <AGE/World/Element>
+#include <AGE/World/Script>
 
 #include <QtCore/QSharedPointer>
 
@@ -26,25 +27,29 @@
 extern "C" {
 #endif
 
-
 namespace AGE {
 
 /**
- * A point location in 3D Geodesic space.
+ * Contains all the non-geometrical properties for AGE::Element.
+ *
+ * For example, if the Element represents a building parcel,
+ * its AGE::Property might contain a seed number to generate a
+ * random number of floors, and another seed number to generate a
+ * random number of windows.
+ *
+ * The seed numbers are consumed by the AGE::Script.
+ *
+ * An AGE::Property owns properties for one or several AGE::Element.
+ * An AGE::Element owns however only one AGE::Property.
  */
-class LIBAGESHARED_EXPORT Point : public Coordinate
+class LIBAGESHARED_EXPORT Property
 {
 public:
-    explicit Point();
-    explicit Point(int identifier,
-                   GeoCoordinate longitude,
-                   GeoCoordinate latitude,
-                   GeoCoordinate altitude);
-
+    explicit Property();
 
 };
 
-typedef QSharedPointer<Point> PointPtr;
+typedef QSharedPointer<Property> PropertyPtr;
 
 } // namespace AGE
 
@@ -52,4 +57,4 @@ typedef QSharedPointer<Point> PointPtr;
 }
 #endif
 
-#endif // AGE_DATABASE_POINT_H
+#endif // AGE_WORLD_PROPERTY_H

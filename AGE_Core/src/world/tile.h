@@ -14,37 +14,34 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AGE_DATABASE_POINT_H
-#define AGE_DATABASE_POINT_H
+#ifndef AGE_WORLD_TILE_H
+#define AGE_WORLD_TILE_H
 
 #include <AGE/Globals>
-#include <AGE/Core/Coordinate>
 
-#include <QtCore/QSharedPointer>
+#include <osg/PagedLOD>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-
 namespace AGE {
 
 /**
- * A point location in 3D Geodesic space.
+ * A Tile is used for the pagination mechanism in OSG.
+ *
  */
-class LIBAGESHARED_EXPORT Point : public Coordinate
+class LIBAGESHARED_EXPORT Tile : public osg::PagedLOD
 {
 public:
-    explicit Point();
-    explicit Point(int identifier,
-                   GeoCoordinate longitude,
-                   GeoCoordinate latitude,
-                   GeoCoordinate altitude);
+    Tile();
+    Tile(const Tile& copy, osg::CopyOp copyop = osg::CopyOp::SHALLOW_COPY);
+    META_Node(osg, Tile);
 
+protected:
+    virtual ~Tile();
 
 };
-
-typedef QSharedPointer<Point> PointPtr;
 
 } // namespace AGE
 
@@ -52,4 +49,4 @@ typedef QSharedPointer<Point> PointPtr;
 }
 #endif
 
-#endif // AGE_DATABASE_POINT_H
+#endif // AGE_WORLD_TILE_H

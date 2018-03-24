@@ -14,42 +14,11 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AGE_DATABASE_POINT_H
-#define AGE_DATABASE_POINT_H
+#include "script.h"
 
-#include <AGE/Globals>
-#include <AGE/Core/Coordinate>
+using namespace AGE;
 
-#include <QtCore/QSharedPointer>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-namespace AGE {
-
-/**
- * A point location in 3D Geodesic space.
- */
-class LIBAGESHARED_EXPORT Point : public Coordinate
+Script::Script()
 {
-public:
-    explicit Point();
-    explicit Point(int identifier,
-                   GeoCoordinate longitude,
-                   GeoCoordinate latitude,
-                   GeoCoordinate altitude);
-
-
-};
-
-typedef QSharedPointer<Point> PointPtr;
-
-} // namespace AGE
-
-#ifdef __cplusplus
 }
-#endif
 
-#endif // AGE_DATABASE_POINT_H

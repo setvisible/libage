@@ -74,6 +74,7 @@ include($$PWD/database/database.pri)
 include($$PWD/io/io.pri)
 include($$PWD/math/math.pri)
 include($$PWD/script/script.pri)
+include($$PWD/world/world.pri)
 
 SOURCES += \
     $$PWD/generator.cpp \

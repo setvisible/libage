@@ -14,11 +14,13 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AGE_DATABASE_POINT_H
-#define AGE_DATABASE_POINT_H
+#ifndef AGE_WORLD_NODE_H
+#define AGE_WORLD_NODE_H
 
 #include <AGE/Globals>
 #include <AGE/Core/Coordinate>
+#include <AGE/Database/Point>
+#include <AGE/World/Element>
 
 #include <QtCore/QSharedPointer>
 
@@ -26,25 +28,28 @@
 extern "C" {
 #endif
 
-
 namespace AGE {
 
 /**
- * A point location in 3D Geodesic space.
+ * A Node is auto-generated from constraints given by the Point,
+ * Edge and/or Region that owns it.
+ *
+ * For example, an house and the adjacent road is contructed by
+ * two Elements, ans share 2 Nodes.
  */
-class LIBAGESHARED_EXPORT Point : public Coordinate
+class LIBAGESHARED_EXPORT Node : public Coordinate
 {
 public:
-    explicit Point();
-    explicit Point(int identifier,
-                   GeoCoordinate longitude,
-                   GeoCoordinate latitude,
-                   GeoCoordinate altitude);
+    explicit Node();
 
+    AGE::PointPtr masterPoint() const;
+
+private:
+    AGE::PointPtr m_masterPoint;
 
 };
+typedef QSharedPointer<Node> NodePtr;
 
-typedef QSharedPointer<Point> PointPtr;
 
 } // namespace AGE
 
@@ -52,4 +57,4 @@ typedef QSharedPointer<Point> PointPtr;
 }
 #endif
 
-#endif // AGE_DATABASE_POINT_H
+#endif // AGE_WORLD_NODE_H

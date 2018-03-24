@@ -14,8 +14,8 @@
  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AGE_REGION_H
-#define AGE_REGION_H
+#ifndef AGE_DATABASE_REGION_H
+#define AGE_DATABASE_REGION_H
 
 #include <AGE/Globals>
 #include <AGE/Database/Point>
@@ -62,4 +62,4 @@ typedef QSharedPointer<Region> RegionPtr;
 }
 #endif
 
-#endif // AGE_REGION_H
+#endif // AGE_DATABASE_REGION_H
